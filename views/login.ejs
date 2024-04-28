@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CookApp</title>
+    <link rel="icon" type="image/png" href="./images/icons/icono.png"/>
+    <meta 
+        name="author" 
+        content="Manuel Rodriguez, Sergio Claustro, Noel Mora, Emiliano Cervantes" 
+    />
+    <meta
+      name="keywords"
+      content="CookApp, recetario, recetas, cocina, red social, comida"
+    />
+    <meta
+      name="description"
+      content="Red social sobre recetas donde la comunidad puede publicar y guardar recetas"
+    />
+    <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+    <h1>LOGIN</h1>
+
+    <form action="/login" method="post">
+        <label for="email">Email:</label>
+        <input type="text" name="email" id="email">
+        <label for="pass">Contraseña:</label>
+        <input type="password" name="pass" id="pass">
+        <input type="submit" value="Entrar">
+    </form>
+
+    <a type="button" href="/register">Registrarse</a>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <% if(alert){ %>
+        <script type="module">
+            // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            
+            // import Swal from 'sweetalert2/dist/sweetalert2.js'
+            // const Swal = require('sweetalert2');
+            Swal.fire({
+                title: '<%= alertTitle %>',
+                text: '<%= alertMessage %>',
+                icon: '<%= alertIcon %>',
+                showConfirmButton: <%= showConfirmButton %>,
+                timer: <%= timer %>
+            }).then(()=>{
+                window.location = '/<%=route%>';
+            });
+        </script>
+    <% } %>
+</body>
+</html>

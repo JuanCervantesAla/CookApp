@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CookApp</title>
+    <link rel="icon" type="image/png" href="./images/icons/icono.png"/>
+    <meta 
+        name="author" 
+        content="Manuel Rodriguez, Sergio Claustro, Noel Mora, Emiliano Cervantes" 
+    />
+    <meta
+      name="keywords"
+      content="CookApp, recetario, recetas, cocina, red social, comida"
+    />
+    <meta
+      name="description"
+      content="Red social sobre recetas donde la comunidad puede publicar y guardar recetas"
+    />
+    <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+    <h1>HOME LOGEADO</h1>
+    <h2>Bienvenido</h2>
+    <% if(user){ %>
+      <span><% user.name %></span>
+    <% } %>
+</body>
+</html>
