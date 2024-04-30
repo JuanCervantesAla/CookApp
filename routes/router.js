@@ -7,6 +7,10 @@ router.get('/', authController.isAuthenticated, (req, res) => {
     res.render('index', {user: req.user});    // Express ya sabe por defecto que las vistas estan en la carpeta view
 });
 
+router.get('/home_no_logeado', (req, res) => {
+    res.render('home_no_logeado');
+});
+
 router.get('/login', (req, res) => {
     res.render('login', {alert: false});
 });

@@ -140,7 +140,7 @@ exports.login = async (req, res) => {
 }
 
 
-exports .isAuthenticated = async (req, res, next) => {
+exports.isAuthenticated = async (req, res, next) => {
     if(req.cookies.jwt){
         try{
             const decoded = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT_SECRET);
@@ -154,7 +154,7 @@ exports .isAuthenticated = async (req, res, next) => {
             return next();
         }
     }else{
-        res.redirect('/login');
+        res.redirect('/home_no_logeado');
     }
 }
 

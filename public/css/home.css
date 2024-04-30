@@ -1,5 +1,115 @@
+:root {
+    --main-font: sans-serif;
+    --font-size: 16px;
+    --main-color: #f7df1e;
+    --second-color: #222;
+    --main-modal-color: rgba(255, 239, 114, 0.85);
+    --second-modal-color: rgba(34, 34, 34, 0.85);
+    --container-width: 1200px;
+    --brown: #a52a2a;
+}
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-body{
-    background-color: aqua;
+html {
+    font-family: var(--main-font);
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+header{
+    top: 0;
+    height: 75px;
+    width: 100vw;
+    background-image: linear-gradient(to right top, #ffa600, #ffba03, #ffce12, #ffe224, #fff637);
+    border-bottom: 4px solid var(--main-color);
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+    z-index: 999;
+}
+
+#logo-menu{
+    height: 60px;
+    filter: drop-shadow(0px 0px 5px white);
+}
+
+#title{
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+    text-shadow: 3px 3px 9px rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
+}
+
+#title span{
+    font-size: 20px;
+    color: var(--brown);
+    text-shadow: none;
+}
+
+/* ********** menu ********** */
+
+.panel{
+    position: fixed;
+    z-index: 998;
+    top: 75px;
+    right: 0;
+    width: 33%;
+    background-color: var(--transparent);
+    transition: transform 0.3s ease;
+    transform: translate(133%, 0);
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.33);
+}
+
+.panel.is-active{
+    transform: translate(0, 0);
+}
+
+.panel-btn{
+    right: 1vw;
+    width: 4rem;
+    height: 4rem;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(0px 0px 5px rgb(0, 0, 0, 0.3));
+}
+
+.menu{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;   
+    background-color: var(--main-modal-color);
+}
+
+.menu a{
+    padding: 2rem;
+    width: inherit;
+    display: block;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--brown);
+    transition: all 0.3s ease;
+    border-bottom: 1px solid var(--brown);
+}
+
+.menu a:hover{
+    font-weight: bold;
+    font-size: 2rem;
+    background-color: var(--main-color);
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CookApp</title>
-    <link rel="icon" type="image/png" href="./images/icons/icono.png"/>
+    <link rel="icon" type="image/png" href="img/icons/icon_CookApp_yellow.png"/>
     <meta 
         name="author" 
         content="Manuel Rodriguez, Sergio Claustro, Noel Mora, Emiliano Cervantes" 
@@ -18,8 +18,37 @@
       content="Red social sobre recetas donde la comunidad puede publicar y guardar recetas"
     />
     <link rel="stylesheet" href="css/home.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.2.1/hamburgers.min.css"
+    />
 </head>
 <body>
+
+    <!-- Menu de navegacion -->
+    <header>
+        <img
+          id="logo-menu"
+          src="img/icons/icon_CookApp_white.png"
+          alt="Logotipo CookApp"
+        />
+        <h1 id="title">CookApp<span>Cocina con nosotros</span></h1>
+        <button class="panel-btn hamburger hamburger--vortex" type="button">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+    </header>
+    <aside class="panel">
+        <nav class="menu">
+            <a href="/login">Iniciar sesion</a>
+            <a href="/register">Registrarse</a>
+            <a href="#">Buscador</a>
+            <a href="#">Sobre nosotros</a>
+            <a href="#">Contacto</a>
+        </nav>
+    </aside>
+
     <h1>LOGIN</h1>
 
     <form action="/login" method="post">
@@ -34,10 +63,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <% if(alert){ %>
         <script type="module">
-            // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            
-            // import Swal from 'sweetalert2/dist/sweetalert2.js'
-            // const Swal = require('sweetalert2');
             Swal.fire({
                 title: '<%= alertTitle %>',
                 text: '<%= alertMessage %>',
@@ -49,5 +74,7 @@
             });
         </script>
     <% } %>
+
+    <script src="js/main_functions.js"></script>
 </body>
 </html>
