@@ -3,10 +3,12 @@
     --font-size: 16px;
     --main-color: #f7df1e;
     --second-color: #222;
-    --main-modal-color: rgba(255, 239, 114, 0.85);
+    --main-modal-color: rgba(255, 239, 114);
     --second-modal-color: rgba(34, 34, 34, 0.85);
     --container-width: 1200px;
     --brown: #a52a2a;
+    --orange: #ffa600;
+    --light-gray: #737373;
 }
 
 * {
@@ -29,7 +31,7 @@ header{
     height: 75px;
     width: 100vw;
     background-image: linear-gradient(to right top, #ffa600, #ffba03, #ffce12, #ffe224, #fff637);
-    border-bottom: 4px solid var(--main-color);
+    border-bottom: 4px solid var(--brown);
     position: sticky;
     display: flex;
     align-items: center;
@@ -66,7 +68,7 @@ header{
     top: 75px;
     right: 0;
     width: 33%;
-    background-color: var(--transparent);
+    background-color: var(--main-modal-color);
     transition: transform 0.3s ease;
     transform: translate(133%, 0);
     box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.33);
@@ -112,4 +114,118 @@ header{
     font-weight: bold;
     font-size: 2rem;
     background-color: var(--main-color);
+}
+
+/* ********* footer (en las paginas que aplican) ********* */
+.footer{
+    width: 100vw;
+    background-color: var(--second-color);
+    height: fit-content;
+    padding: 30px;
+
+    display: grid;
+    grid-template-columns: 2fr repeat(2, 1fr);
+    grid-template-rows: 2fr 1fr;
+}
+
+.footer h3{
+    color: white;
+}
+
+.footer p{
+    color: var(--light-gray);
+    width: 90%;
+}
+
+.footer-about{
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.footer-creators{
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+.footer-links{
+    grid-area: 1 / 3 / 2 / 4;
+}
+
+.footer-links a{
+    display: block;
+    margin-top: 5px;
+    text-decoration: none;
+    color: var(--light-gray);
+}
+
+.footer-links a:hover{
+    color: var(--main-color);
+}
+
+.footer svg:hover{
+    fill: var(--main-color);
+}
+
+.footer-copy{
+    grid-area: 2 / 1 / 3 / 4;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ******** diseño responsive ******** */
+@media screen and (max-width: 800px){
+    .panel{
+        width: 80%;
+    }
+
+    .footer{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+    }
+
+    .footer-about{
+        grid-area: 1 / 1 / 2 / 2;
+    }
+    
+    .footer-creators{
+        grid-area: 2 / 1 / 3 / 2;
+        margin-bottom: 20px;
+    }
+    
+    .footer-links{
+        grid-area: 3 / 1 / 4 / 2;
+        margin-bottom: 20px;
+    }
+
+    .footer-copy{
+        grid-area: 4 / 1 / 5 / 2;
+    }
 }

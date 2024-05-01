@@ -18,6 +18,18 @@ exports.register = async (req, res) => {
         let passHash = await bcryptjs.hash(pass, 8);
         let idFromUserToPass;
 
+        if(!email || !name || !description || !age || !pass || !preguntaSecreta || !respuestaSecreta){
+            res.render('register', {
+                alert: true,
+                alertTitle: 'Advertencia',
+                alertMessage: 'Favor de llenar todos los campos',
+                alertIcon: 'info',
+                showConfirmButton: true,
+                timer: false,
+                route: 'register'
+            });
+        }
+
         // Sentencias SQL
         conn.query('INSERT INTO userc SET ?', {email: email, name:name, description:description, age:age}, (error, results) => {
             if(error){
