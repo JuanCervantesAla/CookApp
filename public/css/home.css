@@ -24,6 +24,10 @@ html {
 
 body {
     overflow-x: hidden;
+    background-image: radial-gradient(var(--orange) 2px, transparent 2px), radial-gradient(var(--orange) 2px, transparent 2px);
+    background-size: 32px 32px;
+    background-position: 0 0, 16px 16px;
+    background-color: white; 
 }
 
 header{

@@ -19,6 +19,26 @@ router.get('/register', (req, res) => {
     res.render('register', {alert: false});
 });
 
+router.get('/about_us', (req, res) => {
+    res.render('about_us');
+});
+
+router.get('/contact', (req, res) => {
+    res.render('contact');
+});
+
+router.get('/recover_password', (req, res) => {
+    res.render('recover_password');
+});
+
+router.get('/terms_and_conditions', (req, res) => {
+    res.render('terms_and_conditions');
+});
+
+router.get('/browser', (req, res) => {
+    res.render('browser');
+});
+
 // Router para los metodos del controller
 router.post('/register', authController.register);
 router.post('/login', authController.login);
