@@ -1,0 +1,18 @@
+:root {
+    --main-font: sans-serif;
+    --font-size: 16px;
+    --main-color: #f7df1e;
+    --second-color: #222;
+    --main-modal-color: rgba(255, 239, 114);
+    --second-modal-color: rgba(34, 34, 34, 0.85);
+    --container-width: 1200px;
+    --brown: #a52a2a;
+    --orange: #ffa600;
+    --light-gray: #737373;
+} 
+
+.menu-profile{
+    width: 100vw;
+    height: 50px;
+    background-color: aqua;
+}

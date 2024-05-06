@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CookApp</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" type="image/png" href="img/icons/icon_CookApp_yellow.png"/>
     <meta 
         name="author" 
@@ -18,7 +19,7 @@
       content="Red social sobre recetas donde la comunidad puede publicar y guardar recetas"
     />
     <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/register.css">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.2.1/hamburgers.min.css"
@@ -41,37 +42,76 @@
         </button>
     </header>
     <aside class="panel">
-        <nav class="menu">
-            <a href="/login">Iniciar sesion</a>
-            <a href="/register">Registrarse</a>
-            <a href="/about_us">Sobre nosotros</a>
-            <a href="/contact">Contacto</a>
-        </nav>
-    </aside>
+      <nav class="menu">
+          <a href="/">Inicio</a>
+          <a href="/login">Iniciar sesion</a>
+          <a href="/register">Registrarse</a>
+          <a href="/about_us">Sobre nosotros</a>
+          <a href="/contact">Contacto</a>
+      </nav>
+  </aside>
 
-    <main>
-      <h1>Crear cuenta</h1>
+    <!--Main Content of the body-->
+    <div class="container-body">
+      <div class="left-side">
+        <div class="title">
+          <img src="img/icons/icon_CookApp_yellow.png" alt="CookApp logo" width="50" height="50"/>
+          <h2>CookApp</h2>
+        </div>
+        <div class="message">
+            <h1>Registrate!</h1><br>
+            <h4>Ya tienes una cuenta? <span>Accede aqui!</span></h4>
+        </div>
+        <div>
+            <div class="word">
+                <h5 class="middleWord">LLena tus datos abajo</h5>
+            </div>
+        </div>
+        <div class="email-password">
 
-      <form action="/register" method="post">
-          <label for="email">Email:</label>
-          <input type="text" name="email" id="email">
-          <label for="name">Nombre:</label>
-          <input type="text" name="name" id="name">
-          <label for="description">Descripcion:</label>
-          <input type="text" name="description" id="description">
-          <label for="age">Edad:</label>
-          <input type="text" name="age" id="age">
-          <label for="preguntaSecreta">Pregunta secreta:</label>
-          <input type="text" name="preguntaSecreta" id="preguntaSecreta">
-          <label for="respuestaSecreta">Respuesta secreta:</label>
-          <input type="text" name="respuestaSecreta" id="respuestaSecreta">
-          <label for="pass">Contraseña:</label>
-          <input type="password" name="pass" id="pass">
-          <input type="submit" value="Registrar">
-      </form>
-    </main>
+          <form id= "registerForm" action="/register" method="post" onsubmit="return submitForm(this);">
+            <br><br>
+            <h4>Correo</h4>
+            <input type="text"  placeholder="ejemplo@dominio.com" name = "email" id="email">
+            <br><br>
+            <h4>Nombre</h4><!----->
+            <input type="text"  placeholder="Sergio Perez Alvada" name = "name" id="name">
+            <br><br>
+            <h4>Descripcion</h4><!----->
+            <textarea id="description" rows="4" cols="5"  placeholder="Cuentanos sobre ti y tu experiencia en cocina" name = "description" id="description"></textarea>
+            <br><br>
+            <h4>Edad</h4><!----->
+            <input id="age" type="number" placeholder="24" name = "age" id="age">
+            <br><br>
+            <h4>Pregunta secreta</h4><!----->
+            <select id="preguntaSecreta" name = "preguntaSecreta">
+              <option value="" selected>Como se llamaba tu escuela de secundaria?</option>
+              <option value="">En que calle vivias cuando estabas en la primaria?</option>
+              <option value="">Que nombre tenia tu primera mascota?</option>
+              <option value="">Cual es el segundo apellido de tu madre?</option>
+            </select>
+            <br><br>
+            <h4>Respuesta de seguridad</h4><!----->
+            <input id="secretAnswer" type="text"  placeholder="Escuela Secundaria 89" name = "respuestaSecreta" id="respuestaSecreta">
+            <br><br>
+            <h4>Contrasena</h4><!----->
+            <input id="password" type="password"  placeholder="***************" name = "pass" id="pass">
+            <br><br>
+            <input id="politics" type="checkbox" name="politics">
+            <label for="politics">Acepto las <a href="privacy_policy">politicas</a> y <a href="/terms_and_conditions">condiciones</a> de uso</label>
+            <br><br>
+            <input id="enterButton"  type="submit" value="Registrar">
+          </form>  
 
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        </div>
+      </div>
+
+      <div class="right-side">
+        <img src="img/icons/icon_CookApp_black.png" alt="CookApp logo"/>
+      </div>
+    </div>
+
+    <br>
 
     <footer class="footer">
       <div class="footer-about">
@@ -80,7 +120,7 @@
       </div>
       <div class="footer-creators">
         <h3>Creadores</h3>
-        <p>
+        <p> 
           Manuel Rodriguez - 
           <a href="https://www.instagram.com/kobra_gloryg/" target="_blank">
             <svg width="20" height="20" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -135,32 +175,17 @@
       </div>
       <div class="footer-links">
         <h3>Links</h3>
-        <a href="/about_us">Sobre nosotros</a>
-        <a href="/contact">Contactanos</a>
-        <a href="/terms_and_conditions">Terminos y condiciones</a>
-        <a href="">Contribuir</a>
+        <a href="#">Sobre nosotros</a>
+        <a href="#">Contactanos</a>
+        <a href="#">Terminos y condiciones</a>
+        <a href="#">Contribuir</a>
       </div>
       <hr>
       <div class="footer-copy">
         <p>Copyright &copy; 2024 CookApp Todos los derechos reservados.</p>
       </div>
     </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <% if(alert){ %>
-        <script type="module">
-            Swal.fire({
-                title: '<%= alertTitle %>',
-                text: '<%= alertMessage %>',
-                icon: '<%= alertIcon %>',
-                showConfirmButton: <%= showConfirmButton %>,
-                timer: <%= timer %>
-            }).then(()=>{
-                window.location = '/<%=route%>';
-            });
-        </script>
-    <% } %>
-
-    <script src="js/main_functions.js"></script>
+    <script src="js/register_functions.js"></script>
+   <script src="js/main_functions.js"></script>
 </body>
 </html>

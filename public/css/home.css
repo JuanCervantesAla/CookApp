@@ -64,6 +64,34 @@ header{
     text-shadow: none;
 }
 
+.user-icon{
+    right: 1vw;
+    width: 4rem;
+    height: 4rem;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(0px 0px 5px rgb(0, 0, 0, 0.3));
+    /* background-color: aqua; */
+}   
+
+.user-icon a{
+    width: 100%;
+    height: 100%;
+}
+
+.user-icon a svg, .user-icon a img{
+    width: 100%;
+    height: 100%;
+    transition: all 0.2s;
+    border-radius: 50%;
+}
+
+.user-icon a svg:hover, .user-icon a img:hover{
+    transform: scale(1.125);
+}
+
 /* ********** menu ********** */
 
 .panel{
@@ -215,7 +243,9 @@ header{
     70% { margin-left: -200%; }
     
     75% { margin-left: -300%; }
-    100% { margin-left: -300%; }
+    95% { margin-left: -300%; }
+
+    100% { margin-left: 0%; }
 }
 
 

@@ -35,6 +35,10 @@ router.get('/terms_and_conditions', (req, res) => {
     res.render('terms_and_conditions');
 });
 
+router.get('/profile', authController.isAuthenticated, (req, res) => {
+    res.render('profile', {user: req.user}); 
+});
+
 router.get('/browser', (req, res) => {
     res.render('browser');
 });

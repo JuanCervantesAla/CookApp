@@ -14,7 +14,176 @@
 body {
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: linear-gradient(to right top, #a52a2a, #bb3f29, #ce5526, #e06c20, #ef8417, #f69610, #fba807, #ffba03, #ffc90e, #ffd81b, #ffe729, #fff637);
+    background-color: #ffffff;
     height: 100%;
 }
 
+.container-body{
+    display: flex;
+    column-gap: 5%;
+
+}
+
+/*Lado izquierdo del body que esta divido en dos*/
+.left-side{
+    width: 35%;
+    margin-left: 4%;
+}
+
+.title{
+    color: var(--brown);
+    display: flex;
+    column-gap: 8%;
+    margin-top: 5%;
+    margin-left: 20%;
+    height: 6%;
+}
+
+.message{
+    margin-top: 2%;
+    margin-left: 20%;
+    font-size: 100%;
+}
+
+.message h1{
+    color: var(--brown);
+}
+
+.message span{
+    color: blue;
+}
+
+.border-Box{
+    display: flex;
+    justify-content: center;
+    font-size: 120%;
+    margin-left: 20%;
+    color: var(--brown);
+
+    column-gap: 5%;
+
+    align-items: center;
+    border: 1px solid var(--brown);
+    border-radius: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.word{
+    margin-top: 7%;
+    margin-left: 20%;
+    align-items: center;
+    justify-content: center;
+    color: #545454;
+}
+
+.middleWord{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    column-gap: 1.6rem;
+}
+
+.middleWord::before , .middleWord::after{
+
+    content: "";
+    height: 1px;
+    background-color: #545454;
+    color: #545454;
+    display: block;
+}
+
+
+.email-password{
+    margin-top: 0%;
+    margin-left: 20%;
+    color: var(--main-color);
+}
+
+.email-password input[type="email"] {
+    margin-top: 2%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid var(--brown);
+    border-radius: 20px;
+    background-color: var(--brown);
+    width: 300px;
+}
+
+.email-password input[type="password"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid var(--brown);
+    border-radius: 20px;
+    background-color: var(--brown);
+    width: 300px;
+}
+
+.email-password input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid var(--brown);
+    border-radius: 20px;
+    background-color: var(--brown);
+    width: 300px;
+}
+
+.email-password select{
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid var(--brown);
+    border-radius: 20px;
+    background-color: var(--brown);
+    width: 300px;
+}
+
+.email-password input[type="number"]{
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid var(--brown);
+    border-radius: 20px;
+    background-color: var(--brown);
+    width: 300px;
+}
+
+.email-password input[type="submit"]{
+    text-decoration: none;
+    padding: 6px;
+    border-radius: 20px;
+    color: var(--main-color);
+    background-color: var(--brown);
+    cursor: pointer;
+    transform: scale(1.125);
+    
+}
+
+.email-password input[type="checkbox"]{
+    text-decoration: none;
+    padding: 6px;
+    border-radius: 20px;
+    color: var(--main-color);
+    background-color: var(--brown);
+    cursor: pointer;
+    transform: scale(1.125);
+    
+}
+
+.email-password textarea{
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid var(--brown);
+    border-radius: 20px;
+    background-color: var(--brown);
+    width: 300px;
+}
+
+
+/*Lado derecho del body que esta divido en dos*/
+.right-side{
+    width: 70%;
+    background-image: linear-gradient(to right top, #a52a2a, #bb3f29, #ce5526, #e06c20, #ef8417, #f69610, #fba807, #ffba03, #ffc90e, #ffd81b, #ffe729, #fff637);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
