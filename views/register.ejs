@@ -60,7 +60,7 @@
         </div>
         <div class="message">
             <h1>Registrate!</h1><br>
-            <h4>Ya tienes una cuenta? <span>Accede aqui!</span></h4>
+            <h4>Ya tienes una cuenta? <span><a href="/login">Accede aqui!</a></span></h4>
         </div>
         <div>
             <div class="word">
@@ -78,27 +78,27 @@
             <input type="text"  placeholder="Sergio Perez Alvada" name = "name" id="name">
             <br><br>
             <h4>Descripcion</h4><!----->
-            <textarea id="description" rows="4" cols="5"  placeholder="Cuentanos sobre ti y tu experiencia en cocina" name = "description" id="description"></textarea>
+            <textarea rows="4" cols="5"  placeholder="Cuentanos sobre ti y tu experiencia en cocina" name = "description" id="description"></textarea>
             <br><br>
             <h4>Edad</h4><!----->
-            <input id="age" type="number" placeholder="24" name = "age" id="age">
+            <input type="number" placeholder="24" name = "age" id="age">
             <br><br>
             <h4>Pregunta secreta</h4><!----->
-            <select id="preguntaSecreta" name = "preguntaSecreta">
-              <option value="" selected>Como se llamaba tu escuela de secundaria?</option>
-              <option value="">En que calle vivias cuando estabas en la primaria?</option>
-              <option value="">Que nombre tenia tu primera mascota?</option>
-              <option value="">Cual es el segundo apellido de tu madre?</option>
+            <select id="preguntaSecreta" name="preguntaSecreta">
+              <option selected>Como se llamaba tu escuela de secundaria?</option>
+              <option>En que calle vivias cuando estabas en la primaria?</option>
+              <option>Que nombre tenia tu primera mascota?</option>
+              <option>Cual es el segundo apellido de tu madre?</option>
             </select>
             <br><br>
             <h4>Respuesta de seguridad</h4><!----->
-            <input id="secretAnswer" type="text"  placeholder="Escuela Secundaria 89" name = "respuestaSecreta" id="respuestaSecreta">
+            <input type="text"  placeholder="Escuela Secundaria 89" name = "respuestaSecreta" id="respuestaSecreta">
             <br><br>
             <h4>Contrasena</h4><!----->
-            <input id="password" type="password"  placeholder="***************" name = "pass" id="pass">
+            <input type="password"  placeholder="***************" name = "pass" id="pass">
             <br><br>
             <input id="politics" type="checkbox" name="politics">
-            <label for="politics">Acepto las <a href="privacy_policy">politicas</a> y <a href="/terms_and_conditions">condiciones</a> de uso</label>
+            <label for="politics">Acepto los <a href="/terms_and_conditions">Terminos y condiciones</a> de uso</label>
             <br><br>
             <input id="enterButton"  type="submit" value="Registrar">
           </form>  
@@ -185,6 +185,22 @@
         <p>Copyright &copy; 2024 CookApp Todos los derechos reservados.</p>
       </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <% if(alert){ %>
+        <script type="module">
+            Swal.fire({
+                title: '<%= alertTitle %>',
+                text: '<%= alertMessage %>',
+                icon: '<%= alertIcon %>',
+                showConfirmButton: <%= showConfirmButton %>,
+                timer: <%= timer %>
+            }).then(()=>{
+                window.location = '/<%=route%>';
+            });
+        </script>
+    <% } %>
+
     <script src="js/register_functions.js"></script>
    <script src="js/main_functions.js"></script>
 </body>

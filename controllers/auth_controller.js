@@ -51,7 +51,16 @@ exports.register = async (req, res) => {
                         return;
                     }
                 });
-                res.redirect('/login');
+                // res.redirect('/login');
+                res.render('register', {
+                    alert: true,
+                    alertTitle: 'Registro exitoso',
+                    alertMessage: 'Ahora inicia sesión',
+                    alertIcon: 'ok',
+                    showConfirmButton: true,
+                    timer: 5000,
+                    route: 'register'
+                });
             });
         });
     }catch(error){
