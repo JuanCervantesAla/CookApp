@@ -14,5 +14,84 @@
 .menu-profile{
     width: 100vw;
     height: 50px;
-    background-color: aqua;
+    background-color: white;
+    border-bottom: 2px solid var(--brown);
+}
+
+.menu-profile ul{
+    width: 100%;
+    height: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.menu-profile ul li a{
+    text-decoration: none;
+    color: var(--brown);
+    position: relative;
+    font-size: 20px;
+}
+
+.menu-profile ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 2px;
+    width: 0;
+    background-color: var(--brown);
+    transition: width 0.2s ease;
+}
+
+.menu-profile ul li a:hover::after {
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 800px){
+    .menu-profile{
+        height: 150px;
+    }
+
+    .menu-profile ul{
+        flex-direction: column;
+    }
+
+    .menu-profile ul li{
+        width: 100%;
+        text-align: center;
+        padding: 5px;
+        background-color: var(--main-color); 
+    }
+
+    .menu-profile ul li a::after {
+        animation: borderBottom 1s infinite ease;
+    }
+    
+    @keyframes borderBottom {
+        0%{width: 0%;}
+        10%{width: 10%;}
+        20%{width: 20%;}
+        30%{width: 30%;}
+        40%{width: 40%;}
+        50%{width: 50%;}
+        60%{width: 60%;}
+        70%{width: 70%;}
+        80%{width: 80%;}
+        90%{width: 90%;}
+        100%{width: 100%;}
+    }
 }

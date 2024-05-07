@@ -36,7 +36,15 @@ router.get('/terms_and_conditions', (req, res) => {
 });
 
 router.get('/profile', authController.isAuthenticated, (req, res) => {
-    res.render('profile', {user: req.user}); 
+    res.render('profile', {user: req.user, alert: false}); 
+});
+
+router.get('/add_recipe', authController.isAuthenticated, (req, res) => {
+    res.render('add_recipe', {user: req.user, alert: false}); 
+});
+
+router.get('/favorites', authController.isAuthenticated, (req, res) => {
+    res.render('favorites', {user: req.user, alert: false}); 
 });
 
 router.get('/browser', (req, res) => {

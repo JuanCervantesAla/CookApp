@@ -266,6 +266,10 @@ header{
 
 /* ******** diseño responsive ******** */
 @media screen and (max-width: 800px){
+    header{
+        padding: 0;
+    }
+
     .panel{
         width: 80%;
     }
