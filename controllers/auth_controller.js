@@ -5,6 +5,7 @@ const {promisify, getSystemErrorMap} = require('util');
 const { error } = require('console');
 // const Swal = require('sweetalert2');
 
+
 // Procedimiento para registrar usuario
 exports.register = async (req, res) => {
     try{
@@ -176,6 +177,28 @@ exports.isAuthenticated = async (req, res, next) => {
         }
     }else{
         res.redirect('/home_no_logeado');
+    }
+}
+
+exports.isAuthenticatedForSecondaryPages = async (req, res, next) => {
+    if(req.cookies.jwt){
+        try{
+            const decoded = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT_SECRET);
+            conn.query('SELECT * FROM userc WHERE id = ?', [decoded.id], (error, results) => {
+                if(!results){return next()};
+                req.user = results[0];
+                req.isAuthenticatedForSecondaryPages = true;
+                req.userForSecondaryPages = results[0];
+                return next();
+            });
+        }catch(error){
+            console.error(`Ha ocurrido algun error: ${error}`);
+            return next();
+        }
+    }else{
+        req.isAuthenticatedForSecondaryPages = false;
+        req.user = '';
+        return next();
     }
 }
 

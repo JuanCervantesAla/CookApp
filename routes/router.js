@@ -19,20 +19,20 @@ router.get('/register', (req, res) => {
     res.render('register', {alert: false});
 });
 
-router.get('/about_us', (req, res) => {
-    res.render('about_us');
+router.get('/about_us', authController.isAuthenticatedForSecondaryPages, (req, res) => {
+    res.render('about_us', {isAuthenticatedForSecondaryPages: req.isAuthenticatedForSecondaryPages, user: req.user});
 });
 
-router.get('/contact', (req, res) => {
-    res.render('contact');
+router.get('/contact', authController.isAuthenticatedForSecondaryPages, (req, res) => {
+    res.render('contact', {isAuthenticatedForSecondaryPages: req.isAuthenticatedForSecondaryPages, user: req.user});
 });
 
 router.get('/recover_password', (req, res) => {
     res.render('recover_password');
 });
 
-router.get('/terms_and_conditions', (req, res) => {
-    res.render('terms_and_conditions');
+router.get('/terms_and_conditions', authController.isAuthenticatedForSecondaryPages, (req, res) => {
+    res.render('terms_and_conditions', {isAuthenticatedForSecondaryPages: req.isAuthenticatedForSecondaryPages, user: req.user});
 });
 
 router.get('/profile', authController.isAuthenticated, (req, res) => {
