@@ -47,9 +47,18 @@ document.addEventListener('DOMContentLoaded', () =>{ //Lee el documento, desde e
 
     function validateDescription(){
         const value = description.value.trim();
+        const valueLength = description.value;
         if(value === ''){
+            console.log(value);
             Swal.fire({
                 title: 'Agrega una descripcion!',
+                icon: 'waning',
+                confirmButtonText: 'OK'
+              });
+            return false;
+        }else if(valueLength.length >= 120){
+            Swal.fire({
+                title: 'La descripcion no debe sobrepasar los 120 caracteres',
                 icon: 'waning',
                 confirmButtonText: 'OK'
               });

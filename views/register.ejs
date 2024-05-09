@@ -51,39 +51,38 @@
       </nav>
   </aside>
 
-    <!--Main Content of the body-->
+    <!--Contenido principal de la pagina-->
     <div class="container-body">
       <div class="left-side">
-        <div class="title">
-          <img src="img/icons/icon_CookApp_yellow.png" alt="CookApp logo" width="50" height="50"/>
-          <h2>CookApp</h2>
-        </div>
-        <div class="message">
-            <h1>Registrate!</h1><br>
-            <h4>Ya tienes una cuenta? <span><a href="/login">Accede aqui!</a></span></h4>
-        </div>
-        <div>
-            <div class="word">
-                <h5 class="middleWord">LLena tus datos abajo</h5>
-            </div>
-        </div>
+        <img src="img/icons/icon_CookApp_white.png" alt="CookApp logo"/>
+      </div>
+      <div class="right-side">
         <div class="email-password">
-
-          <form id= "registerForm" action="/register" method="post" onsubmit="return submitForm(this);">
+          <div class="title">
+            <img src="img/icons/icon_CookApp_yellow.png" alt="CookApp logo"/>
+            <h2>CookApp</h2>
+          </div>
+          <div class="message">
+            <h2>Registrate!</h2><br>
+            <h4>Ya tienes una cuenta? <span><a href="/login">Accede aqui!</a></span></h4>
+          </div>
+          <div class="word">
+            <h5 class="middleWord">LLena tus datos abajo</h5>
+          </div>
+          <form id="registerForm" action="/register" method="post" onsubmit="return submitForm(this);">
+            <label for="email">Correo:</label><br>
+            <input type="email" placeholder="ejemplo@dominio.com" name="email" id="email" required>
             <br><br>
-            <h4>Correo</h4>
-            <input type="text"  placeholder="ejemplo@dominio.com" name = "email" id="email">
+            <label for="name">Nombre:</label><br>
+            <input type="text" placeholder="Sergio Perez Alvada" name="name" id="name" required>
             <br><br>
-            <h4>Nombre</h4><!----->
-            <input type="text"  placeholder="Sergio Perez Alvada" name = "name" id="name">
+            <label for="description">Descripcion:</label><br>
+            <textarea rows="4" cols="5"  placeholder="Cuentanos sobre ti y tu experiencia en cocina" name="description" id="description" required></textarea>
             <br><br>
-            <h4>Descripcion</h4><!----->
-            <textarea rows="4" cols="5"  placeholder="Cuentanos sobre ti y tu experiencia en cocina" name = "description" id="description"></textarea>
+            <label for="age">Edad</label><br>
+            <input type="number" placeholder="24" name="age" id="age" required>
             <br><br>
-            <h4>Edad</h4><!----->
-            <input type="number" placeholder="24" name = "age" id="age">
-            <br><br>
-            <h4>Pregunta secreta</h4><!----->
+            <label for="preguntaSecreta">Pregunta secreta:</label><br>
             <select id="preguntaSecreta" name="preguntaSecreta">
               <option selected>Como se llamaba tu escuela de secundaria?</option>
               <option>En que calle vivias cuando estabas en la primaria?</option>
@@ -91,27 +90,20 @@
               <option>Cual es el segundo apellido de tu madre?</option>
             </select>
             <br><br>
-            <h4>Respuesta de seguridad</h4><!----->
-            <input type="text"  placeholder="Escuela Secundaria 89" name = "respuestaSecreta" id="respuestaSecreta">
+            <label for="respuestaSecreta">Respuesta de seguridad</label><br>
+            <input type="text" placeholder="Escuela Secundaria 89" name="respuestaSecreta" id="respuestaSecreta" required>
             <br><br>
-            <h4>Contrasena</h4><!----->
-            <input type="password"  placeholder="***************" name = "pass" id="pass">
+            <label for="pass">Contrasena:</label><br>
+            <input type="password" placeholder="***************" name="pass" id="pass" required>
             <br><br>
             <input id="politics" type="checkbox" name="politics">
-            <label for="politics">Acepto los <a href="/terms_and_conditions">Terminos y condiciones</a> de uso</label>
-            <br><br>
+            <label for="politics">Acepto los <a href="/terms_and_conditions">Terminos y condiciones</a> de uso</label><br>
             <input id="enterButton"  type="submit" value="Registrar">
           </form>  
-
         </div>
-      </div>
-
-      <div class="right-side">
-        <img src="img/icons/icon_CookApp_black.png" alt="CookApp logo"/>
       </div>
     </div>
 
-    <br>
 
     <footer class="footer">
       <div class="footer-about">

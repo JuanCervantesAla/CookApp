@@ -11,17 +11,10 @@
     --light-gray: #737373;
 }
 
-body {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: linear-gradient(to right top, #a52a2a, #bb3f29, #ce5526, #e06c20, #ef8417, #f69610, #fba807, #ffba03, #ffc90e, #ffd81b, #ffe729, #fff637);
-    height: 100%;
-}
-
 #form-outline{
-    background-color: transparent;
+    background-color: var(--orange);
     width: 90vw;
-    height: 90vh;
+    height: fit-content;
     margin: auto;
     margin-top: 5vh;
     display: flex;
@@ -29,20 +22,22 @@ body {
     justify-content: center;
     align-items: center;
     padding: 10px;
-    box-shadow: 0 0 15px var(--second-color);
+    box-shadow: 0 0 15px var(--light-gray);
     border-radius: 10px;
 }
 
 #form-title{
-    background-color: transparent;
-    width: 35vw;
+    color: white;
+    background-color: #ffc17bc5;
+    width: 33%;
     margin: auto;
     margin-top: 5vh;
+    margin-bottom: 5vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px;
-    box-shadow: 0 0 15px var(--second-color);
+    box-shadow: 0 0 15px var(--light-gray);
     border-radius: 10px;
 }
 
@@ -54,17 +49,12 @@ body {
     width: 400px;
 }
 
-
-
-
 #form-add_receta{
     width: 75%;
     text-align: justify;
     color: black;
     text-shadow: 3px 3px 9px rgba(0, 0, 0, 0.45);
 }
-
-
 
 #form-add_receta hr{
     color: var(--brown);
@@ -97,7 +87,7 @@ body {
     justify-content: space-evenly;
 }
 
-#form-add_receta input[type="submit"], #register{
+#form-add_receta input[type="submit"]{
     text-align: center;
     display: inline-block;
     background-color: var(--main-color);
@@ -113,11 +103,7 @@ body {
     transition: all 0.2s;
 }
 
-#register{
-    text-decoration: none;
-}
-
-#form-add_receta input[type="submit"]:hover, #register:hover{
+#form-add_receta input[type="submit"]:hover{
     color: var(--main-color);
     background-color: var(--brown);
     cursor: pointer;
