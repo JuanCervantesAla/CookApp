@@ -36,8 +36,12 @@ router.get('/terms_and_conditions', authController.isAuthenticatedForSecondaryPa
 });
 
 router.get('/profile', authController.isAuthenticated, (req, res) => {
-    res.render('profile', {user: req.user, alert: false}); 
+    res.render('profile', {user: req.user, updateSuccess: false }); 
 });
+
+// router.get('/update-description', (req, res) => {
+//     res.render('profile', {user: req.user, updateSuccess: true }); 
+// });
 
 router.get('/add_recipe', authController.isAuthenticated, (req, res) => {
     res.render('add_recipe', {user: req.user, alert: false}); 
@@ -55,5 +59,6 @@ router.get('/browser', (req, res) => {
 router.post('/register', authController.register);
 router.post('/login', authController.login);
 router.get('/logout', authController.logout);
+router.post('/update-description', authController.updateDescription);
 
 module.exports = router;

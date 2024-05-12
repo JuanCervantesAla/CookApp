@@ -4,73 +4,10 @@ const conn = require('../database/db');
 const {promisify, getSystemErrorMap} = require('util');
 const { error } = require('console');
 const Swal = require('sweetalert2');
+const puppeteer = require('puppeteer');
 
-
-
-// Procedimiento para registrar usuario
-// exports.register = async (req, res) => {
-//     try{
-//         const email = req.body.email;
-//         const name = req.body.name;
-//         const description = req.body.description;
-//         const age = req.body.age;
-//         const pass = req.body.pass;
-//         const preguntaSecreta = req.body.preguntaSecreta;
-//         const respuestaSecreta = req.body.respuestaSecreta;
-//         let passHash = await bcryptjs.hash(pass, 8);
-//         let idFromUserToPass;
-
-//         if(!email || !name || !description || !age || !pass || !preguntaSecreta || !respuestaSecreta){
-//             res.render('register', {
-//                 alert: true,
-//                 alertTitle: 'Advertencia',
-//                 alertMessage: 'Favor de llenar todos los campos',
-//                 alertIcon: 'info',
-//                 showConfirmButton: true,
-//                 timer: false,
-//                 route: 'register'
-//             });
-//         }
-
-//         // Sentencias SQL
-//         conn.query('INSERT INTO userc SET ?', {email: email, name:name, description:description, age:age}, (error, results) => {
-//             if(error){
-//                 console.error(`Ha ochurido un erro: ${error}`);
-//                 res.redirect('/');
-//                 return;
-//             }
-//             conn.query('SELECT id FROM userc WHERE email = ?', [email], (error, results) => {
-//                 if(error){
-//                     console.error(`Ha ochurido un erro: ${error}`);
-//                     res.redirect('/');
-//                     return;
-//                 }
-//                 idFromUserToPass = results.map(row => row.id);
-//                 conn.query('INSERT INTO passwordc SET ?', {idUserC:idFromUserToPass, pass:passHash, preguntaSecreta:preguntaSecreta, respuestaSecreta:respuestaSecreta}, (error, results) => {
-//                     if(error){
-//                         console.error(`Ha ochurido un erro: ${error}`);
-//                         res.redirect('/');
-//                         return;
-//                     }
-//                 });
-//                 // res.redirect('/login');
-//                 res.render('register', {
-//                     alert: true,
-//                     alertTitle: 'Registro exitoso',
-//                     alertMessage: 'Ahora inicia sesión',
-//                     alertIcon: 'ok',
-//                     showConfirmButton: true,
-//                     timer: 5000,
-//                     route: 'register'
-//                 });
-//             });
-//         });
-//     }catch(error){
-//         console.error(`Ha ochurido un erro: ${error}`);
-//     }    
-// }
-
-
+let user = {};
+let idUser;
 
 exports.register = async (req, res) => {
     try {
@@ -195,6 +132,7 @@ exports.login = async (req, res) => {
                     });
                     return; 
                 }
+                idUser = resultsUser[0].id;
                 conn.query('SELECT * FROM passwordc WHERE idUserC = ?', [resultsUser[0].id], async (error, resultsPass)=>{
                     if(error){
                         console.error(`Ha ochurido un erro: ${error}`);
@@ -257,6 +195,8 @@ exports.isAuthenticated = async (req, res, next) => {
             conn.query('SELECT * FROM userc WHERE id = ?', [decoded.id], (error, results) => {
                 if(!results){return next()};
                 req.user = results[0];
+                user = req.user;
+                idUser = decoded.id;
                 return next();
             });
         }catch(error){
@@ -295,3 +235,46 @@ exports.logout = (req, res) => {
     res.clearCookie('jwt');
     return res.redirect('/');
 }
+
+
+exports.updateDescription = async (req, res) => {
+    try {
+        const userId = idUser;
+        const newDescription = req.body.description; 
+        if (!newDescription) {
+            return res.render('profile', {
+                alert: true,
+                alertTitle: 'Advertencia',
+                alertMessage: 'La descripción no puede estar vacía',
+                alertIcon: 'info',
+                showConfirmButton: true,
+                timer: false,
+                route: 'profile'
+            });
+        }else if(newDescription.length >= 120){
+            return res.render('profile', {
+                user: user, 
+                updateSuccess: 0
+            });
+        }
+        // Actualizar la descripcion en la base de datos
+        conn.query('UPDATE userc SET description = ? WHERE id = ?', [newDescription, userId], (error, results) => {
+            if (error) {
+                return res.render('profile', {
+                    user: user, 
+                    updateSuccess: -1
+                });
+            }else{
+                // Renderizar la página profile con la bandera updateSuccess
+                return res.render('profile', {
+                    user: user, 
+                    updateSuccess: 1
+                });
+            }
+        });
+    } catch (error) {
+        console.error(`Ha ocurrido un error: ${error}`);
+        return res.redirect('/profile');
+    }
+}
+

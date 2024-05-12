@@ -49,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () =>{ //Lee el documento, desde e
         const value = description.value.trim();
         const valueLength = description.value;
         if(value === ''){
-            console.log(value);
             Swal.fire({
                 title: 'Agrega una descripcion!',
                 icon: 'waning',
