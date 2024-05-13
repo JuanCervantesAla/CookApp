@@ -5,6 +5,7 @@ const {promisify, getSystemErrorMap} = require('util');
 const { error } = require('console');
 const Swal = require('sweetalert2');
 const puppeteer = require('puppeteer');
+const fs = require('fs');
 
 let user = {};
 let idUser;
@@ -278,3 +279,55 @@ exports.updateDescription = async (req, res) => {
     }
 }
 
+
+
+
+
+
+exports.updateProfilePic = async (req, res) => {
+    try {
+        const userId = idUser; // Obtener el ID de usuario
+        let profilePicPath = req.file.path; // Obtener la ruta de la imagen
+        profilePicPath = profilePicPath.replace("public\\", "");
+
+        // Verificar si se ha enviado un archivo
+        if (!req.file) {
+            return res.render('profile', {
+                user: user, 
+                updateSuccess: -2 // Código para indicar que no se envió ninguna imagen
+            });
+        }
+
+        // Verificar si el usuario ya tiene una imagen de perfil anterior
+        conn.query('SELECT profilePicUrl FROM userc WHERE id = ?', [userId], (error, results) => {
+            if (error) {
+                return res.render('profile', {
+                    user: user, 
+                    updateSuccess: -2
+                });
+            }
+
+            // Actualizar la ruta de la imagen en la base de datos
+            conn.query('UPDATE userc SET profilePicUrl = ? WHERE id = ?', [profilePicPath, userId], (error, results) => {
+                if (error) {
+                    return res.render('profile', {
+                        user: user, 
+                        updateSuccess: -2
+                    });
+                }
+                return res.render('profile', {
+                    user: user, 
+                    updateSuccess: 2
+                });
+            });
+        });
+    } catch (error) {
+        return res.render('profile', {
+            user: user, 
+            updateSuccess: -2
+        });
+    }
+};
+
+
+exports.getUser = () => user;

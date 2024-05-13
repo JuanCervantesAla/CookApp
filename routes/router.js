@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/auth_controller');
+const multer = require('multer');
+const path = require('path');
+
 
 // Router para las vistas
 router.get('/', authController.isAuthenticated, (req, res) => {
@@ -39,9 +42,6 @@ router.get('/profile', authController.isAuthenticated, (req, res) => {
     res.render('profile', {user: req.user, updateSuccess: false }); 
 });
 
-// router.get('/update-description', (req, res) => {
-//     res.render('profile', {user: req.user, updateSuccess: true }); 
-// });
 
 router.get('/add_recipe', authController.isAuthenticated, (req, res) => {
     res.render('add_recipe', {user: req.user, alert: false}); 
@@ -55,10 +55,48 @@ router.get('/browser', (req, res) => {
     res.render('browser');
 });
 
+
 // Router para los metodos del controller
 router.post('/register', authController.register);
 router.post('/login', authController.login);
 router.get('/logout', authController.logout);
 router.post('/update-description', authController.updateDescription);
+
+
+// Configurar multer para manejar la carga de archivos
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads/profile_pics/');
+    },
+    filename: function (req, file, cb) {
+        // const userId = req.user.id; // Obtener el ID de usuario
+        const userId = authController.getUser();
+        cb(null, 'profile_pic_' + userId.id + path.extname(file.originalname));
+    }
+});
+
+// Función para validar el formato de archivo
+const fileFilter = (req, file, cb) => {
+    const allowedFormats = ['.jpg', '.jpeg', '.png', '.gif'];
+    const fileExtension = path.extname(file.originalname);
+    if (allowedFormats.includes(fileExtension)) {
+        cb(null, true); // Aceptar el archivo si su formato está permitido
+    } else {
+        cb(null, false); // Rechazar el archivo si su formato no está permitido
+    }
+};
+
+// const upload = multer({ storage: storage });
+const upload = multer({ 
+    storage: storage,
+    fileFilter: fileFilter // Aplicar la validación de formato de archivo
+});
+
+// Agregar la ruta para actualizar la foto de perfil
+router.post('/update-profile-pic', upload.single('profile-pic'), authController.updateProfilePic);
+
+
+
+
 
 module.exports = router;

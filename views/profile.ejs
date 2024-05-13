@@ -49,9 +49,14 @@
             </script>
           <% }else{ %>
             <script>
-              document.getElementById('user-icon-link').innerHTML = `<img src="${'<%= user.profilePicUrl %>'}" alt="Foto de perfil">`;
+              // Cadena original
+              let urlFailed = '<%= user.profilePicUrl %>';
+              // Utilizamos una expresion regular para buscar 'profile_' y reemplazarlo con '/profile_'
+              var finalUrl = urlFailed.replace(/profile_/g, "/profile_");
+              document.getElementById('user-icon-link').innerHTML = `<img src="${finalUrl}" alt="Foto de perfil">`;
+              // console.log(finalUrl);
             </script>
-          <% } %>
+           <% } %>
           
         </div>
         <button class="panel-btn hamburger hamburger--vortex" type="button">
@@ -83,13 +88,13 @@
           </script>
         <% }else{ %>
           <script>
-            document.getElementById('profile-pic').innerHTML = `<img src="${'<%= user.profilePicUrl %>'}" alt="Foto de perfil">`;
+            document.getElementById('profile-pic').innerHTML = `<img src="${finalUrl}" alt="Foto de perfil">`;
           </script>
          <% } %>
       </div>
       <div class="profile-name-container">
         <p id="profile-name">
-          <% if (!user.profilePicUrl) { %>
+          <% if (!user.name) { %>
             <script>
               document.getElementById('profile-name').innerHTML = `Desconocido`;
             </script>
@@ -169,8 +174,12 @@
     <div id="update-profile-pic-modal">
       <div id="update-profile-pic-modal-content">
         <span id="close-pic-modal">&times;</span>
-        <p>Contenido del modal aquí</p>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <h2>Actualizar descripción de perfil</h2>
+        <form action="/update-profile-pic" method="post" enctype="multipart/form-data">
+          <label for="profile-pic">Seleccione su nueva imagen de perfil:</label>
+          <input type="file" name="profile-pic" id="profile-pic" required accept=".jpg, .jpeg, .png, .gif">
+          <input type="submit" value="Actualizar" id="btn-update-profile-pic">
+        </form>
       </div>
     </div>
 
@@ -275,6 +284,8 @@
           title: 'Error!',
           text: 'Ha ocurrido un error en la actualización de descripcion',
           showConfirmButton: true
+        }).then(()=>{
+          document.getElementById('user-icon-link').click();
         });
     </script>
     <% }else if(updateSuccess === 0){ %>
@@ -284,8 +295,43 @@
           title: 'Advertencia',
           text: 'Solo se aceptan 120 caracteres en la descripción',
           showConfirmButton: true
+        }).then(()=>{
+          document.getElementById('user-icon-link').click();
         });
-    </script>
+      </script>
+    <% }else if(updateSuccess === -2){ %>
+      <script>
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error al subir la foto',
+          showConfirmButton: true
+        }).then(()=>{
+          document.getElementById('user-icon-link').click();
+        });
+      </script>
+    <% }else if(updateSuccess === 2){ %>
+      <script>
+        Swal.fire({
+          icon: 'success',
+          title: 'Foto de perfil actualizada',
+          text: 'Se ha actualizado tu foto de perfil exitosamente',
+          showConfirmButton: true
+        }).then(()=>{
+          document.getElementById('user-icon-link').click();
+        });
+      </script>
+    <% }else if(updateSuccess === -3){ %>
+      <script>
+        Swal.fire({
+          icon: 'warning',
+          title: 'Advertencia',
+          text: 'La imagen debe ser de tipo: .jpg, .jpeg, .png o .gif',
+          showConfirmButton: true
+        }).then(()=>{
+          document.getElementById('user-icon-link').click();
+        });
+      </script>
     <% } %>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
