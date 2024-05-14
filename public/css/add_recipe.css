@@ -11,9 +11,10 @@
     --light-gray: #737373;
 }
 
+
 #form-outline{
-    background-color: var(--orange);
-    width: 90vw;
+    backdrop-filter: blur(2px);
+    width: 70vw;
     height: fit-content;
     margin: auto;
     margin-top: 5vh;
@@ -21,75 +22,84 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    box-shadow: 0 0 15px var(--light-gray);
+    padding: 25px 0;
+    box-shadow: 0 0 10px var(--light-gray);
     border-radius: 10px;
 }
 
 #form-title{
-    color: white;
-    background-color: #ffc17bc5;
-    width: 33%;
-    margin: auto;
-    margin-top: 5vh;
+    color: var(--brown);
+    background-color: white;
+    width: 100%;
+    margin-top: 3vh;
     margin-bottom: 5vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    box-shadow: 0 0 15px var(--light-gray);
-    border-radius: 10px;
+    padding: 15px;
+    border-top: 2px dashed var(--brown); 
+    border-bottom: 2px dashed var(--brown); 
+}
+
+#form-title h2{
+    font-size: 30px;
+    text-shadow: 0 0 2px var(--orange);
 }
 
 #form-add_receta {
-    background-color: #ffc17bc5;
+    /* background-color: #ffc17bc5; */
+    background-color: white;
+    border: 2px dashed var(--brown);
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 400px;
-}
-
-#form-add_receta{
-    width: 75%;
+    width: 80%;
     text-align: justify;
-    color: black;
-    text-shadow: 3px 3px 9px rgba(0, 0, 0, 0.45);
 }
 
-#form-add_receta hr{
+/* #form-add_receta hr{
     color: var(--brown);
     margin: 15px;
-}
+} */
 
 #form-add_receta label{
     font-size: 1.5rem;
-    color: white;
-    text-shadow: 3px 3px 9px rgba(0, 0, 0, 0.45);
+    /* color: white; */
+    color: var(--brown);
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.45);
 }
 
-#form-add_receta input[type="file"], #form-add_receta input[type="text"]{
+#form-add_receta input[type="file"], #form-add_receta input[type="text"], #form-add_receta textarea{
     width: 90%;
     font-size: var(--font-size);
     padding: 5px;
     margin: 10px;
     margin-left: 5%;
+    margin-bottom: 25px;
     background-color: transparent;
     outline: none;
     border: none;
-    border-bottom: 3px solid white;
+    border-bottom: 3px solid var(--orange);
     /* color: white; */
-    color: var(--brown);
+    color: black;
+}
+
+#form-add_receta textarea{
+    resize: none;
+    border: 2px solid var(--orange);
+    height: 100px;
 }
 
 #form-buttons{
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
+    justify-content: center;
 }
 
 #form-add_receta input[type="submit"]{
     text-align: center;
-    display: inline-block;
+    /* display: inline-block; */
     background-color: var(--main-color);
     width: 33%;
     font-size: 1rem;
@@ -108,4 +118,14 @@
     background-color: var(--brown);
     cursor: pointer;
     transform: scale(1.125);
+}
+
+@media screen and (max-width: 800px){
+    #form-outline{
+        width: 95vw;
+    }
+
+    #form-add_receta {
+        width: 95%;
+    }
 }

@@ -78,7 +78,7 @@
 
     <div id="form-outline">
       <div id="form-title">
-        <h1>AGREGAR RECETA</h1>
+        <h2>AGREGAR RECETA</h2>
       </div>
       <form action="/add_recipe" method="post" id="form-add_receta">
         <label for="nombre_receta">Titulo de la receta:</label><br />
@@ -95,34 +95,25 @@
           type="file"
           name="portada"
           id="portada"
-          accept="image/*"
+          required 
+          accept=".jpg, .jpeg, .png, .gif"
           aria-label="Seleccionar imagen"
         /><br />
 
-        <label for="ingredientes">Ingredientes:</label><br />
-        <input
-          type="text"
-          name="ingredientes"
-          id="ingredientes"
-          required
-          placeholder="Ingrese sus ingredientes..."
-        /><br />
+        <label for="ingredientes">Ingredientes (Separelos con un salto de linea):</label><br />
+        <textarea name="ingredientes" id="ingredientes" required></textarea><br>
 
-        <label for="pasos">Pasos:</label><br />
-        <input
-          type="text"
-          name="pasos"
-          id="pasos"
-          required
-          placeholder="Ingrese pasos..."
-        /><br />
+        <label for="pasos">Pasos (Separelos con un salto de linea):</label><br />
+        <textarea name="pasos" id="pasos" required></textarea><br>
 
         <label for="imagen">Subir imagenes:</label><br />
         <input
           type="file"
           name="imagen"
           id="imagen"
-          accept="image/*"
+          required 
+          accept=".jpg, .jpeg, .png, .gif"
+          multiple
           aria-label="Seleccionar imagen"
         />
 

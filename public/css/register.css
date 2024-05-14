@@ -160,3 +160,32 @@
     cursor: pointer;
     transform: scale(1.125);
 }
+
+
+@media screen and (max-width: 800px){
+    .container-body{
+        display: flex;
+        justify-content: center;
+    }
+    
+    .left-side{
+        display: none;
+        width: 0;
+    }
+
+    .right-side{
+        width: 100vw;
+    }
+
+    .email-password{
+        width: 95%;
+    }
+
+    #registerForm{
+        width: 100%;
+    }
+
+    #registerForm input[type="email"], #registerForm input[type="password"], #registerForm input[type="text"], #registerForm input[type="number"], #registerForm textarea, #registerForm select {
+        width: 90%;
+    }
+}
