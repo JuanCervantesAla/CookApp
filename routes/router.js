@@ -62,9 +62,8 @@ router.post('/login', authController.login);
 router.get('/logout', authController.logout);
 router.post('/update-description', authController.updateDescription);
 
-
-// Configurar multer para manejar la carga de archivos
-const storage = multer.diskStorage({
+// Configurar multer para manejar la carga de archivos de perfil
+const profileStorage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'public/uploads/profile_pics/');
     },
@@ -75,8 +74,8 @@ const storage = multer.diskStorage({
     }
 });
 
-// Función para validar el formato de archivo
-const fileFilter = (req, file, cb) => {
+// Función para validar el formato de archivo de perfil
+const profileFileFilter = (req, file, cb) => {
     const allowedFormats = ['.jpg', '.jpeg', '.png', '.gif'];
     const fileExtension = path.extname(file.originalname);
     if (allowedFormats.includes(fileExtension)) {
@@ -86,14 +85,77 @@ const fileFilter = (req, file, cb) => {
     }
 };
 
-// const upload = multer({ storage: storage });
-const upload = multer({ 
-    storage: storage,
-    fileFilter: fileFilter // Aplicar la validación de formato de archivo
+// Crear una instancia de multer para la carga de archivos de perfil
+const profileUpload = multer({ 
+    storage: profileStorage,
+    fileFilter: profileFileFilter // Aplicar la validación de formato de archivo
 });
 
-// Agregar la ruta para actualizar la foto de perfil
-router.post('/update-profile-pic', upload.single('profile-pic'), authController.updateProfilePic);
+
+
+
+// Configurar almacenamiento para la portada
+const portadaStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads/title_pics_recipe/');
+    },
+    filename: function (req, file, cb) {
+        const userId = authController.getUser();
+        cb(null, 'image_title_recipe_' + userId.id + '_' + Math.round(Math.random() * 1E9) + path.extname(file.originalname));
+    }
+});
+
+// Configurar almacenamiento para las imágenes de los pasos
+const pasosStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads/step_pics_recipe/');
+    },
+    filename: function (req, file, cb) {
+        const userId = authController.getUser();
+        cb(null, 'image_step_recipe_' + userId.id + '_' + Math.round(Math.random() * 1E9) + path.extname(file.originalname));
+    }
+});
+
+// Validación de formato de archivo
+const fileFilter = (req, file, cb) => {
+    const allowedFormats = ['.jpg', '.jpeg', '.png', '.gif'];
+    const fileExtension = path.extname(file.originalname);
+    if (allowedFormats.includes(fileExtension)) {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+};
+
+// Crear instancia de multer para la portada y las imágenes de los pasos
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            if (file.fieldname === 'portada') {
+                cb(null, 'public/uploads/title_pics_recipe/');
+            } else if (file.fieldname === 'imagenes') {
+                cb(null, 'public/uploads/steps_pics_recipe/');
+            }
+        },
+        filename: function (req, file, cb) {
+            const userId = authController.getUser();
+            const uniqueSuffix = userId.id + '_' + Math.round(Math.random() * 1E9) + path.extname(file.originalname);
+            if (file.fieldname === 'portada') {
+                cb(null, 'image_title_recipe_' + uniqueSuffix);
+            } else if (file.fieldname === 'imagenes') {
+                cb(null, 'image_step_recipe_' + uniqueSuffix);
+            }
+        }
+    }),
+    fileFilter: fileFilter
+});
+
+// Configurar la ruta para subir la receta
+router.post('/add_recipe', upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'imagenes', maxCount: 5 }]), authController.addRecipe);
+
+// Rutas para la carga de imágenes de perfil y recetas
+router.post('/update-profile-pic', profileUpload.single('profile-pic'), authController.updateProfilePic);
+
 
 
 

@@ -4,8 +4,10 @@ const conn = require('../database/db');
 const {promisify, getSystemErrorMap} = require('util');
 const { error } = require('console');
 const Swal = require('sweetalert2');
-const puppeteer = require('puppeteer');
 const fs = require('fs');
+const path = require('path');
+
+// const { title } = require('process');
 
 let user = {};
 let idUser;
@@ -279,11 +281,6 @@ exports.updateDescription = async (req, res) => {
     }
 }
 
-
-
-
-
-
 exports.updateProfilePic = async (req, res) => {
     try {
         const userId = idUser; // Obtener el ID de usuario
@@ -331,3 +328,100 @@ exports.updateProfilePic = async (req, res) => {
 
 
 exports.getUser = () => user;
+
+
+exports.addRecipe = async (req, res) => {
+    try {
+        let userId = idUser; // Obtener el ID de usuario
+
+        const nombre = req.body.nombre_receta;
+        let portada = req.files['portada'] ? req.files['portada'][0].path : null;
+        if (portada) portada = portada.replace("public\\", "");
+        const ingredientes = req.body.ingredientes;
+        const pasos = req.body.pasos;
+        const categoria = req.body.categoria;
+        const idUserRecipe = idUser;
+
+        let arrIngredientes = ingredientes.split('\n');
+        let txtIngredientes = arrIngredientes.join(',');
+
+        let arrPasos = pasos.split('\n');
+        let txtPasos = arrPasos.join(',');
+
+        if (!nombre || !ingredientes || !pasos || !categoria) {
+            return res.render('add_recipe', {
+                alert: true,
+                alertTitle: 'Advertencia',
+                alertMessage: 'Favor de llenar todos los campos',
+                alertIcon: 'info',
+                showConfirmButton: true,
+                timer: false,
+                route: 'add_recipe',
+                user: user
+            });
+        }
+
+        if (!req.files['portada']) {
+            return res.render('add_recipe', {
+                alert: true,
+                alertTitle: 'Oops',
+                alertMessage: 'Ha ocurrido un error al subir la imagen de portada, lo lamentamos',
+                alertIcon: 'error',
+                showConfirmButton: true,
+                timer: false,
+                route: 'add_recipe',
+                user: user
+            });
+        }
+
+        // Procesar imágenes de los pasos si existen
+        let imagenesPasos = req.files['imagenes'] || [];
+        let rutasImagenesPasos = imagenesPasos.map(file => file.path.replace("public\\", "")).join(',');
+
+        conn.query('INSERT INTO recipe SET ?', {
+            titleRecipe: nombre, 
+            categoryRecipe: categoria, 
+            stepsRecipe: txtPasos, 
+            ingredientsRecipe: txtIngredientes, 
+            imgTitleRecipe: portada, 
+            imgStepsRecipe: rutasImagenesPasos, // Asegúrate de que la columna imgStepsRecipe existe en tu tabla
+            idUserSenderRecipe: userId 
+        }, (error, results) => {
+            if (error) {
+                return res.render('add_recipe', {
+                    alert: true,
+                    alertTitle: 'Oops',
+                    alertMessage: 'Ha ocurrido un error al subir la receta, lo lamentamos',
+                    alertIcon: 'error',
+                    showConfirmButton: true,
+                    timer: false,
+                    route: 'add_recipe',
+                    user: user
+                });
+            }
+            return res.render('add_recipe', {
+                alert: true,
+                alertTitle: 'Publicación exitosa',
+                alertMessage: 'Se ha publicado exitosamente su receta',
+                alertIcon: 'success',
+                showConfirmButton: true,
+                timer: false,
+                route: 'add_recipe',
+                user: user
+            });
+        });
+
+    } catch (error) {
+        return res.render('add_recipe', {
+            alert: true,
+            alertTitle: 'Error',
+            alertMessage: `Ha ocurrido un error al subir la receta: ${error}`,
+            alertIcon: 'error',
+            showConfirmButton: true,
+            timer: false,
+            route: 'add_recipe',
+            user: user
+        });
+    }
+}
+

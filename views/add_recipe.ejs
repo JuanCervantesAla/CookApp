@@ -80,7 +80,7 @@
       <div id="form-title">
         <h2>AGREGAR RECETA</h2>
       </div>
-      <form action="/add_recipe" method="post" id="form-add_receta">
+      <form action="/add_recipe" method="post" id="form-add_receta" enctype="multipart/form-data">
         <label for="nombre_receta">Titulo de la receta:</label><br />
         <input
           type="text"
@@ -95,9 +95,10 @@
           type="file"
           name="portada"
           id="portada"
-          required 
+          
           accept=".jpg, .jpeg, .png, .gif"
           aria-label="Seleccionar imagen"
+          accept=".jpg, .jpeg, .png, .gif"
         /><br />
 
         <label for="ingredientes">Ingredientes (Separelos con un salto de linea):</label><br />
@@ -106,21 +107,56 @@
         <label for="pasos">Pasos (Separelos con un salto de linea):</label><br />
         <textarea name="pasos" id="pasos" required></textarea><br>
 
-        <label for="imagen">Subir imagenes:</label><br />
+        <label for="categoria">Seleccione una categoría:</label><br>
+        <select id="categoria" name="categoria">
+          <option selected>Ensaladas</option>
+          <option>Entrantes</option>
+          <option>Sopas y cremas</option>
+          <option>Platos principales</option>
+          <option>Carnes</option>
+          <option>Aves</option>
+          <option>Pescados y mariscos</option>
+          <option>Pastas</option>
+          <option>Arroces</option>
+          <option>Guisos y estofados</option>
+          <option>Vegetarianas</option>
+          <option>Veganas</option>
+          <option>Sin gluten</option>
+          <option>Sin lácteos</option>
+          <option>Desayunos y brunch</option>
+          <option>Meriendas y tentempiés</option>
+          <option>Postres</option>
+          <option>Tartas y pasteles</option>
+          <option>Galletas y dulces</option>
+          <option>Helados y sorbetes</option>
+          <option>Bebidas y cócteles</option>
+          <option>Panes y bollería</option>
+          <option>Conservas y encurtidos</option>
+          <option>Salsas y aderezos</option>
+          <option>Comida rápida y snacks</option>
+          <option>Platos regionales (ej. cocina italiana, mexicana, asiática, etc.)</option>
+          <option>Cocina casera</option>
+          <option>Recetas para niños</option>
+          <option>Recetas para ocasiones especiales (ej. Navidad, Halloween, San Valentín, etc.)</option>
+          <option>Recetas para dietas específicas (ej. keto, paleo, mediterránea, etc.)</option>
+          <option>Otros</option>
+        </select><br>
+
+        <label for="imagen">Subir imagenes de los pasos (opcional, maximo 5):</label><br />
         <input
           type="file"
-          name="imagen"
-          id="imagen"
-          required 
+          name="imagenes"
+          id="imagenes"
           accept=".jpg, .jpeg, .png, .gif"
           multiple
           aria-label="Seleccionar imagen"
         />
 
+
         <div id="form-buttons">
           <input type="submit" value="Subir receta" />
         </div>
-      </>
+      </form>
     </div>
 
     <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
