@@ -32,9 +32,21 @@ function getRecipes(page, callback) {
     });
 }
 
+// Función para obtener una receta específica por su ID
+function getRecipeById(id, callback) {
+    const sql = 'SELECT recipe.*, userc.profilePicUrl, userc.name FROM recipe JOIN userc ON recipe.idUserSenderRecipe = userc.id WHERE idRecipe = ?';
+    conn.query(sql, [id], (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        return callback(null, results[0]); // results[0] porque esperamos un solo resultado
+    });
+}
+
 module.exports = {
     conn: conn,
-    getRecipes: getRecipes
+    getRecipes: getRecipes,
+    getRecipeById: getRecipeById
 };
 
 // module.exports = conn;

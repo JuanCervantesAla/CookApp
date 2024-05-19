@@ -236,6 +236,7 @@ exports.isAuthenticatedForSecondaryPages = async (req, res, next) => {
 
 exports.logout = (req, res) => {
     res.clearCookie('jwt');
+    user = {};
     return res.redirect('/');
 }
 
@@ -453,3 +454,26 @@ exports.getMoreRecipes = (req, res) => {
 };
 
 
+
+
+
+// controllers/recipe_controller.js
+
+const { getRecipeById } = require('../database/db'); // Importa la función getRecipeById
+
+exports.showRecipe = (req, res, next) => {
+    const recipeId = req.params.id;
+
+    getRecipeById(recipeId, (err, recipe) => {
+        if (err) {
+            console.error('Error fetching recipe: ' + err);
+            return res.status(500).send('Error fetching recipe');
+        }
+
+        if (!recipe) {
+            return res.status(404).send('Recipe not found');
+        }
+
+        res.render(`recipe`, { recipe: recipe, user: user }); // Renderiza la vista 'recipe' con la receta obtenida
+    });
+};

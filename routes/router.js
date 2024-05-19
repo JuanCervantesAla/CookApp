@@ -17,6 +17,13 @@ router.get('/home_no_logeado', authController.showHomePageDeslogeado, (req, res)
     res.render('home_no_logeado');
 });
 
+// Ruta para mostrar la receta completa
+router.get('/recipe/:id', authController.showRecipe);
+
+// router.get('/recipe/:id', authController.showRecipe, authController.isAuthenticated, (req, res) => {
+//     res.render('recipe', { user: req.user});
+// });
+
 router.get('/login', (req, res) => {
     res.render('login', {alert: false});
 });
