@@ -3,14 +3,17 @@ const router = express.Router();
 const authController = require('../controllers/auth_controller');
 const multer = require('multer');
 const path = require('path');
+const conn = require('../database/db');
 
 
 // Router para las vistas
-router.get('/', authController.isAuthenticated, (req, res) => {
+router.get('/', authController.isAuthenticated, authController.showHomePage, (req, res) => {
     res.render('index', {user: req.user});    // Express ya sabe por defecto que las vistas estan en la carpeta view
 });
 
-router.get('/home_no_logeado', (req, res) => {
+router.get('/more-recipes', authController.getMoreRecipes);
+
+router.get('/home_no_logeado', authController.showHomePageDeslogeado, (req, res) => {
     res.render('home_no_logeado');
 });
 
@@ -54,6 +57,10 @@ router.get('/favorites', authController.isAuthenticated, (req, res) => {
 router.get('/browser', (req, res) => {
     res.render('browser');
 });
+
+
+
+
 
 
 // Router para los metodos del controller
@@ -155,8 +162,6 @@ router.post('/add_recipe', upload.fields([{ name: 'portada', maxCount: 1 }, { na
 
 // Rutas para la carga de imágenes de perfil y recetas
 router.post('/update-profile-pic', profileUpload.single('profile-pic'), authController.updateProfilePic);
-
-
 
 
 

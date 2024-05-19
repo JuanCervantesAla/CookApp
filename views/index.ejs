@@ -22,6 +22,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.2.1/hamburgers.min.css"
     />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -87,13 +88,114 @@
       </div>
     </div>
     
+    
 
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <main id="recipes-main-container">
+    </main>
+
+    <script>
+        $(document).ready(function () {
+            let currentPage = 1;
+
+            function loadMoreRecipes(page) {
+                $.ajax({
+                    url: '/more-recipes',
+                    method: 'GET',
+                    data: { page: page },
+                    success: function (recipes) {
+                        if (recipes.length > 0) {
+                            recipes.forEach(recipe => {
+                              if(recipe.profilePicUrl){
+                                $('#recipes-main-container').append(`
+                                <div class="recipe-container">
+                                  <div class="img-recipe">
+                                    <a href="/recipe${recipe.idRecipe}">
+                                      <img src="${recipe.imgTitleRecipe}" alt="Portada de receta">
+                                    </a>
+                                  </div>
+                                  <div class="info-recipe">
+                                    <h2 class="title-recipe">${recipe.titleRecipe}</h2>
+                                    <p><b>Categoría:</b> ${recipe.categoryRecipe}</p>
+                                    <p><b>Autor:</b> ${recipe.name}</p>
+                                    <img src="${recipe.profilePicUrl}" alt="Foto de perfil del autor">
+                                  </div>
+                                  <div class="buttons-recipe">
+                                    <a class="like-recipe">
+                                      <svg class="like" width="46" height="46" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.001 4.529a5.998 5.998 0 0 1 8.242.228 6 6 0 0 1 .236 8.236l-8.48 8.492-8.478-8.492a6 6 0 0 1 8.48-8.464Z"></path>
+                                      </svg>
+                                    </a>
+                                    <a href="/profile">
+                                      <svg width="46" height="46" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6.455 19 2 22.5V4a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6.455ZM7 10v2h2v-2H7Zm4 0v2h2v-2h-2Zm4 0v2h2v-2h-2Z"></path>
+                                      </svg>
+                                    </a>
+                                    <a href="/profile">
+                                      <svg width="46" height="46" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13 14h-2a8.999 8.999 0 0 0-7.968 4.81C3.011 18.54 3 18.27 3 18 3 12.477 7.477 8 13 8V3l10 8-10 8v-5Z"></path>
+                                      </svg>
+                                    </a>
+                                  </div>
+                                </div>
+                                `);
+                              }else{
+                                $('#recipes-main-container').append(`
+                                <div class="recipe-container">
+                                  <div class="img-recipe">
+                                    <a href="/recipe${recipe.idRecipe}">
+                                      <img src="${recipe.imgTitleRecipe}" alt="Portada de receta">
+                                    </a>
+                                  </div>
+                                  <div class="info-recipe">
+                                    <h2 class="title-recipe">${recipe.titleRecipe}</h2>
+                                    <p><b>Categoría:</b> ${recipe.categoryRecipe}</p>
+                                    <p><b>Autor:</b> ${recipe.name}</p>
+                                    <svg width="70" height="70" fill="#a52a2a" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2ZM6.023 15.416C7.491 17.606 9.695 19 12.16 19c2.464 0 4.669-1.393 6.136-3.584A8.968 8.968 0 0 0 12.16 13a8.968 8.968 0 0 0-6.137 2.416ZM12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
+                                    </svg>
+                                  </div>
+                                  <div class="buttons-recipe">
+                                    <a class="like-recipe">
+                                      <svg class="like" width="46" height="46" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.001 4.529a5.998 5.998 0 0 1 8.242.228 6 6 0 0 1 .236 8.236l-8.48 8.492-8.478-8.492a6 6 0 0 1 8.48-8.464Z"></path>
+                                      </svg>
+                                    </a>
+                                    <a href="/profile">
+                                      <svg width="46" height="46" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6.455 19 2 22.5V4a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6.455ZM7 10v2h2v-2H7Zm4 0v2h2v-2h-2Zm4 0v2h2v-2h-2Z"></path>
+                                      </svg>
+                                    </a>
+                                    <a href="/profile">
+                                      <svg width="46" height="46" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13 14h-2a8.999 8.999 0 0 0-7.968 4.81C3.011 18.54 3 18.27 3 18 3 12.477 7.477 8 13 8V3l10 8-10 8v-5Z"></path>
+                                      </svg>
+                                    </a>
+                                  </div>
+                                </div>
+                                `);
+                              }
+                            });
+                        }
+                    },
+                    error: function () {
+                        console.error('Error loading more recipes');
+                    }
+                });
+            }
+
+            // Initial load
+            loadMoreRecipes(currentPage);
+
+            // Infinite scroll
+            $(window).scroll(function () {
+                if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+                    currentPage++;
+                    loadMoreRecipes(currentPage);
+                }
+            });
+        });
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/main_functions.js"></script>
 </body>

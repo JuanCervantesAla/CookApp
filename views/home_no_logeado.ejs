@@ -22,6 +22,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.2.1/hamburgers.min.css"
     />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -64,14 +65,81 @@
         </ul>
       </div>
     </div>
-    
 
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <main id="recipes-main-container">
+    </main>
+
+    <script>
+        $(document).ready(function () {
+            let currentPage = 1;
+
+            function loadMoreRecipes(page) {
+                $.ajax({
+                    url: '/more-recipes',
+                    method: 'GET',
+                    data: { page: page },
+                    success: function (recipes) {
+                        if (recipes.length > 0) {
+                            recipes.forEach(recipe => {
+                              if(recipe.profilePicUrl){
+                                $('#recipes-main-container').append(`
+                                <div class="recipe-container">
+                                  <div class="img-recipe">
+                                    <a href="/recipe${recipe.idRecipe}">
+                                      <img src="${recipe.imgTitleRecipe}" alt="Portada de receta">
+                                    </a>
+                                  </div>
+                                  <div class="info-recipe">
+                                    <h2 class="title-recipe">${recipe.titleRecipe}</h2>
+                                    <p><b>Categoría:</b> ${recipe.categoryRecipe}</p>
+                                    <p><b>Autor:</b> ${recipe.name}</p>
+                                    <img src="${recipe.profilePicUrl}" alt="Foto de perfil del autor">
+                                  </div>
+                                </div>
+                                `);
+                              }else{
+                                $('#recipes-main-container').append(`
+                                <div class="recipe-container">
+                                  <div class="img-recipe">
+                                    <a href="/recipe${recipe.idRecipe}">
+                                      <img src="${recipe.imgTitleRecipe}" alt="Portada de receta">
+                                    </a>
+                                  </div>
+                                  <div class="info-recipe">
+                                    <h2 class="title-recipe">${recipe.titleRecipe}</h2>
+                                    <p><b>Categoría:</b> ${recipe.categoryRecipe}</p>
+                                    <p><b>Autor:</b> ${recipe.name}</p>
+                                    <svg width="70" height="70" fill="#a52a2a" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2ZM6.023 15.416C7.491 17.606 9.695 19 12.16 19c2.464 0 4.669-1.393 6.136-3.584A8.968 8.968 0 0 0 12.16 13a8.968 8.968 0 0 0-6.137 2.416ZM12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
+                                    </svg>
+                                  </div>
+                                </div>
+                                `);
+                              }
+                            });
+                        }
+                    },
+                    error: function () {
+                        console.error('Error loading more recipes');
+                    }
+                });
+            }
+
+            // Initial load
+            loadMoreRecipes(currentPage);
+
+            // Infinite scroll
+            $(window).scroll(function () {
+                if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+                    currentPage++;
+                    loadMoreRecipes(currentPage);
+                }
+            });
+        });
+    </script>
+    
+    
 
 
     <script src="js/main_functions.js"></script>

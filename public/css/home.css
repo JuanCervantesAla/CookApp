@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
+
 :root {
     --main-font: sans-serif;
     --font-size: 16px;
@@ -249,7 +251,102 @@ header{
 }
 
 
+/* ********* recetas ********** */
+main{
+    width: 90vw;
+    height: fit-content;
+    min-height: 1080px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 100px;
+    padding: 50px 0;
+}
 
+.recipe-container{
+    width: 400px;
+    height: 700px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    box-shadow: 0 0 20px 2px rgb(209, 209, 209);
+    transition: all 0.2s;
+}
+
+.recipe-container:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.img-recipe{
+    width: 400px;
+    height: 400px;  
+    overflow: hidden;
+    position: relative;
+    border-top-left-radius: 15px; /* Esquina superior izquierda redondeada */
+    border-top-right-radius: 15px; /* Esquina superior derecha redondeada */
+    box-shadow: 0 0 20px 2px rgb(209, 209, 209);
+}
+
+.img-recipe img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: center; 
+}
+
+.info-recipe{
+    width: 100%;
+    height: 40%;
+}
+
+.title-recipe{
+    font-family: "Poetsen One", sans-serif;
+    text-align: center;
+    padding: 20px;
+    font-size: 20px;
+    background-image: linear-gradient(to right top, #ffa600, #ffba03, #ffce12, #ffe224, #fff637);
+    color: var(--brown);
+    text-shadow: 1px 1px 3px rgb(255, 255, 255);
+}
+
+.info-recipe p{
+    font-size: 20px;
+    padding: 15px;
+    background-color: white;
+}
+
+.info-recipe img{
+    width: 100px;
+    height: 100px;
+    object-fit: cover; 
+    object-position: center; 
+    padding: 15px;
+    border-radius: 50%;
+}
+
+.buttons-recipe{
+    width: 100%;
+    height: 10%;
+    background-color: var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom-left-radius: 15px; /* Esquina superior izquierda redondeada */
+    border-bottom-right-radius: 15px; /* Esquina superior derecha redondeada */
+}
+
+.buttons-recipe a svg{
+    cursor: pointer;
+    filter:drop-shadow(0px 0px 5px rgb(156, 156, 156));
+    transition: all 0.3s;
+}
+
+.buttons-recipe a svg:hover{
+    transform: scale(1.125);
+}
 
 
 

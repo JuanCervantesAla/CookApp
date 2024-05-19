@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
-const conn = require('../database/db');
+const {conn} = require('../database/db');
 const {promisify, getSystemErrorMap} = require('util');
 const { error } = require('console');
 const Swal = require('sweetalert2');
@@ -424,4 +424,32 @@ exports.addRecipe = async (req, res) => {
         });
     }
 }
+
+
+
+// home_controller.js
+
+const { getRecipes } = require('../database/db'); // Importa la función getRecipes
+
+exports.showHomePage = (req, res) => {
+    res.render('index', { user: req.user }); // Renderiza la vista inicial
+};
+
+exports.showHomePageDeslogeado = (req, res) => {
+    res.render('home_no_logeado'); // Renderiza la vista inicial
+};
+
+exports.getMoreRecipes = (req, res) => {
+    const currentPage = parseInt(req.query.page) || 1;
+
+    getRecipes(currentPage, (err, recipes) => {
+        if (err) {
+            console.error('Error fetching recipes: ' + err);
+            return res.status(500).json({ error: 'Error fetching recipes' });
+        }
+
+        res.json(recipes); // Devuelve las recetas en formato JSON
+    });
+};
+
 
