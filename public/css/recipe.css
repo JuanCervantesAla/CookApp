@@ -1,7 +1,141 @@
-body{
-    background-color: red;
+@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
+
+:root {
+    --main-font: sans-serif;
+    --font-size: 16px;
+    --main-color: #f7df1e;
+    --second-color: #222;
+    --main-modal-color: rgba(255, 239, 114);
+    --second-modal-color: rgba(34, 34, 34, 0.85);
+    --container-width: 1200px;
+    --brown: #a52a2a;
+    --orange: #ffa600;
+    --light-gray: #737373;
 }
 
-h1{
-    color: blue;
+.recipe{
+    width: 70vw;
+    height: fit-content;
+    min-height: 1080px;
+    margin: auto;
+    margin-top: 50px;
+    backdrop-filter: blur(4px);
+    border: 2px solid var(--brown);
+    border-radius: 20px;
+    box-shadow: 0 0 20px 2px rgb(209, 209, 209);
+    
+    display: block;
+
+    padding-bottom: 0;
+}
+
+.title-Recipe{
+    width: 100%;
+    height: fit-content;
+    padding: 5px;
+    background-color: white;
+    border-bottom: 2px dashed var(--brown);
+    border-top: 2px dashed var(--brown);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-Recipe h2{
+    font-family: "Poetsen One", sans-serif;
+    padding: 15px;
+    font-size: 35px;
+    text-shadow: 0px 0px 5px var(--main-color);
+    color: var(--brown);
+}
+
+.image-recipe{
+    width: 500px;
+    height: 500px;  
+    overflow: hidden;
+    position: relative;
+    border-radius: 20px;
+    box-shadow: 0 0 20px 5px rgb(209, 209, 209);
+    margin: 30px auto;
+}
+
+.image-recipe img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: center;
+    box-shadow: 0 0 20px 20px rgb(209, 209, 209);
+}
+
+.autor-info-recipe{
+    width: 100%;
+    height: 100px;
+    padding: 15px;
+    margin: 15px auto;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.autor-info-recipe img{
+    height: 100%;
+    width: auto;
+    border-radius: 50%;
+}
+
+.autor-info-recipe p{
+    font-size: 20px;
+    margin-left: 20px;
+    background-color: wheat;
+    padding: 5px;
+    border-radius: 10px;
+    border-bottom-left-radius: 0px; /* Esquina superior derecha redondeada */
+}
+
+.autor-info-recipe p b{
+    color: var(--brown);
+}
+
+.ingredients-recipe, .steps-recipe, .img-steps-recipe{
+    width: 100%;
+    height: fit-content;
+}
+
+.ingredients-recipe h2, .steps-recipe h2, .img-steps-recipe h2{
+    width: 100%;
+    font-size: 25px;
+    text-align: center;
+    background-color: wheat;
+    color: var(--brown);
+    padding: 5px;
+}
+
+#ingredients-list, #steps-list, #img-steps-list{
+    /* list-style: none; */
+    width: 100%;
+    padding: 15px 40px;
+}
+
+#img-steps-list{
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+#img-steps-list img{
+    width: 40%;
+}
+
+.buttons-recipe{
+    
+}
+
+
+
+@media screen and (max-width: 800px){
+    .recipe{
+        width: 98vw;
+    }
 }

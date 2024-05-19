@@ -40,7 +40,7 @@
       content="Red social sobre recetas donde la comunidad puede publicar y guardar recetas"
     />
     <link rel="stylesheet" href="/css/home.css">
-    <link rel="stylesheet" href="/css/about_us.css">
+    <link rel="stylesheet" href="/css/recipe.css">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.2.1/hamburgers.min.css"
@@ -84,7 +84,6 @@
             <a href="/about_us">Sobre nosotros</a>
             <a href="/contact">Contacto</a>
         `;
-        
       </script>
       <% if (!user.profilePicUrl) { %>
         <script>
@@ -115,10 +114,85 @@
       </script>
     <% }%>
 
-
-
-
+    <main class="recipe">
+      <div class="title-Recipe">
+        <h2><%= recipe.titleRecipe %></h2>
+      </div>
+      <div class="image-recipe">
+        <img src='/<%= recipe.imgTitleRecipe %>' alt="Imagen de la receta">
+      </div>
+      <div class="autor-info-recipe">
+        <img src="/<%= recipe.profilePicUrl %>" alt="">
+        <p><b>Autor:</b> <%= recipe.name %></p>
+        <p><b>Categoría:</b> <%= recipe.categoryRecipe %></p>
+      </div>
+      <div class="ingredients-recipe">
+        <h2>Ingredientes</h2>
+        <ul id="ingredients-list"></ul>
+        <script>
+            // Recibe los ingredientes como una cadena
+            let ingredients = <%- JSON.stringify(recipe.ingredientsRecipe) %>;
+            let ingredientsArray = ingredients.split(',');
+            const $ingredientsList = document.getElementById('ingredients-list');
+            ingredientsArray.forEach(ingredient => {
+                const li = document.createElement('li');
+                li.textContent = ingredient.trim(); // Elimina los espacios en blanco alrededor del texto
+                $ingredientsList.appendChild(li);
+            });
+        </script>
+      </div>
+      <div class="steps-recipe">
+        <h2>Pasos a seguir</h2>
+        <ul id="steps-list"></ul>
+        <script>
+            // Recibe los pasos como una cadena
+            let steps = <%- JSON.stringify(recipe.stepsRecipe) %>;
+            let stepsArray = steps.split(',');
+            const $stepsList = document.getElementById('steps-list');
+            stepsArray.forEach(step => {
+                const li = document.createElement('li');
+                li.textContent = step.trim(); // Elimina los espacios en blanco alrededor del texto
+                $stepsList.appendChild(li);
+            });
+        </script>
+      </div>
+      <% if(recipe.imgStepsRecipe){ %>
+        <div class="img-steps-recipe">
+          <h2>Imagenes de referencia</h2>
+          <div id="img-steps-list"></div>
+          <script>
+              // Recibe los pasos como una cadena
+              let imgSteps = <%- JSON.stringify(recipe.imgStepsRecipe) %>;
+              let imgStepsArray = imgSteps.split(',');
+              const $imgStepsList = document.getElementById('img-steps-list');
+              imgStepsArray.forEach(imgStep => {
+                  const img = document.createElement('img');
+                  img.src = "/" + imgStep.trim(); // Elimina los espacios en blanco alrededor del texto
+                  $imgStepsList.appendChild(img);
+              });
+          </script>
+        </div>
+      <% }%>
+      <div class="buttons-recipe">
+        <a class="like-recipe">
+          <svg class="like" width="46" height="46" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.001 4.529a5.998 5.998 0 0 1 8.242.228 6 6 0 0 1 .236 8.236l-8.48 8.492-8.478-8.492a6 6 0 0 1 8.48-8.464Z"></path>
+          </svg>
+        </a>
+        <a href="/profile">
+          <svg width="46" height="46" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.455 19 2 22.5V4a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6.455ZM7 10v2h2v-2H7Zm4 0v2h2v-2h-2Zm4 0v2h2v-2h-2Z"></path>
+          </svg>
+        </a>
+        <a href="/profile">
+          <svg width="46" height="46" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 14h-2a8.999 8.999 0 0 0-7.968 4.81C3.011 18.54 3 18.27 3 18 3 12.477 7.477 8 13 8V3l10 8-10 8v-5Z"></path>
+          </svg>
+        </a>
+      </div>
+    </main>
     
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
     <footer class="footer">

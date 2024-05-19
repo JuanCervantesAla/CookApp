@@ -43,10 +43,21 @@ function getRecipeById(id, callback) {
     });
 }
 
+function getRecipesUser(idUser, callback) {
+    const sql = 'SELECT * FROM recipe WHERE idUserSenderRecipe = ?';
+    conn.query(sql, [idUser], (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        return callback(null, results);
+    });
+}
+
 module.exports = {
     conn: conn,
     getRecipes: getRecipes,
-    getRecipeById: getRecipeById
+    getRecipeById: getRecipeById,
+    getRecipesUser: getRecipesUser
 };
 
 // module.exports = conn;

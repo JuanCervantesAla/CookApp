@@ -477,3 +477,22 @@ exports.showRecipe = (req, res, next) => {
         res.render(`recipe`, { recipe: recipe, user: user }); // Renderiza la vista 'recipe' con la receta obtenida
     });
 };
+
+
+
+const { getRecipesUser } = require('../database/db'); // Importa la función getRecipesUser
+exports.showRecipesUser = (req, res, next) => {
+
+    getRecipesUser(user.id, (err, recipes) => {
+        if (err) {
+            console.error('Error fetching recipe: ' + err);
+            return res.status(500).send('Error fetching recipe');
+        }
+
+        if (!recipes) {
+            return res.status(404).send('Recipe not found');
+        }
+
+        res.render('profile', { recipes: recipes, user: user, updateSuccess: false }); // Renderiza la vista 'profile' con las recetas subidas por el usuario
+    });
+};

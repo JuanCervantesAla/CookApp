@@ -48,8 +48,8 @@ router.get('/terms_and_conditions', authController.isAuthenticatedForSecondaryPa
     res.render('terms_and_conditions', {isAuthenticatedForSecondaryPages: req.isAuthenticatedForSecondaryPages, user: req.user});
 });
 
-router.get('/profile', authController.isAuthenticated, (req, res) => {
-    res.render('profile', {user: req.user, updateSuccess: false }); 
+router.get('/profile', authController.isAuthenticated, authController.showRecipesUser, (req, res) => {
+    res.render('profile', {user: req.user, updateSuccess: false, recipes: null}); 
 });
 
 
