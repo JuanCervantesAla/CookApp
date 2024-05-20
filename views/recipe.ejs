@@ -45,6 +45,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.2.1/hamburgers.min.css"
     />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 </head>
 <body>
 
@@ -173,9 +176,10 @@
           </script>
         </div>
       <% }%>
+      <% if(user.name){ %>
       <div class="buttons-recipe">
-        <a class="like-recipe">
-          <svg class="like" width="46" height="46" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <a class="like-recipe" data-id="<%= recipe.idRecipe %>">
+          <svg class="like" width="46" height="46" fill="${heartColor}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M12.001 4.529a5.998 5.998 0 0 1 8.242.228 6 6 0 0 1 .236 8.236l-8.48 8.492-8.478-8.492a6 6 0 0 1 8.48-8.464Z"></path>
           </svg>
         </a>
@@ -184,13 +188,50 @@
             <path d="M6.455 19 2 22.5V4a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6.455ZM7 10v2h2v-2H7Zm4 0v2h2v-2h-2Zm4 0v2h2v-2h-2Z"></path>
           </svg>
         </a>
-        <a href="/profile">
+        <a onclick="printRecipe();" id="share-recipe">
           <svg width="46" height="46" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M13 14h-2a8.999 8.999 0 0 0-7.968 4.81C3.011 18.54 3 18.27 3 18 3 12.477 7.477 8 13 8V3l10 8-10 8v-5Z"></path>
           </svg>
         </a>
       </div>
+      <% }else{ %>
+        <div class="buttons-recipe">
+          <a onclick="printRecipe();" id="share-recipe">
+            <svg width="46" height="46" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13 14h-2a8.999 8.999 0 0 0-7.968 4.81C3.011 18.54 3 18.27 3 18 3 12.477 7.477 8 13 8V3l10 8-10 8v-5Z"></path>
+            </svg>
+          </a>
+        </div>
+      <% } %>
     </main>
+
+    <script>
+
+      function printRecipe(){
+        window.print();
+      }
+
+      $(document).on('click', '.like-recipe', function (e) {
+              e.preventDefault();
+              const likeButton = $(this);
+              const recipeId = likeButton.data('id');
+              $.ajax({
+                  url: '/toggle-like',
+                  method: 'POST',
+                  data: { idRecipe: recipeId },
+                  success: function (response) {
+                      if (response.liked) {
+                          likeButton.find('svg').attr('fill', '#ff0000');
+                      } else {
+                          likeButton.find('svg').attr('fill', '#ffffff');
+                      }
+                  },
+                  error: function () {
+                      console.error('Error toggling like');
+                  }
+              });
+          });
+    </script>
     
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
