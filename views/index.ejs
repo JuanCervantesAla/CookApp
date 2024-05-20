@@ -105,6 +105,7 @@
                     success: function (recipes) {
                         if (recipes.length > 0) {
                             recipes.forEach(recipe => {
+                              const heartColor = recipe.liked ? '#ff0000' : '#ffffff';
                               if(recipe.profilePicUrl){
                                 $('#recipes-main-container').append(`
                                 <div class="recipe-container">
@@ -120,8 +121,8 @@
                                     <img src="${recipe.profilePicUrl}" alt="Foto de perfil del autor">
                                   </div>
                                   <div class="buttons-recipe">
-                                    <a class="like-recipe">
-                                      <svg class="like" width="46" height="46" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <a class="like-recipe" data-id="${recipe.idRecipe}">
+                                      <svg class="like" width="46" height="46" fill="${heartColor}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.001 4.529a5.998 5.998 0 0 1 8.242.228 6 6 0 0 1 .236 8.236l-8.48 8.492-8.478-8.492a6 6 0 0 1 8.48-8.464Z"></path>
                                       </svg>
                                     </a>
@@ -155,8 +156,8 @@
                                     </svg>
                                   </div>
                                   <div class="buttons-recipe">
-                                    <a class="like-recipe">
-                                      <svg class="like" width="46" height="46" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <a class="like-recipe" data-id="${recipe.idRecipe}">
+                                      <svg class="like" width="46" height="46" fill="${heartColor}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.001 4.529a5.998 5.998 0 0 1 8.242.228 6 6 0 0 1 .236 8.236l-8.48 8.492-8.478-8.492a6 6 0 0 1 8.48-8.464Z"></path>
                                       </svg>
                                     </a>
@@ -193,6 +194,27 @@
                     loadMoreRecipes(currentPage);
                 }
             });
+
+            $(document).on('click', '.like-recipe', function (e) {
+              e.preventDefault();
+              const likeButton = $(this);
+              const recipeId = likeButton.data('id');
+              $.ajax({
+                  url: '/toggle-like',
+                  method: 'POST',
+                  data: { idRecipe: recipeId },
+                  success: function (response) {
+                      if (response.liked) {
+                          likeButton.find('svg').attr('fill', '#ff0000');
+                      } else {
+                          likeButton.find('svg').attr('fill', '#ffffff');
+                      }
+                  },
+                  error: function () {
+                      console.error('Error toggling like');
+                  }
+              });
+          });
         });
     </script>
 

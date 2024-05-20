@@ -20,9 +20,7 @@ router.get('/home_no_logeado', authController.showHomePageDeslogeado, (req, res)
 // Ruta para mostrar la receta completa
 router.get('/recipe/:id', authController.showRecipe);
 
-// router.get('/recipe/:id', authController.showRecipe, authController.isAuthenticated, (req, res) => {
-//     res.render('recipe', { user: req.user});
-// });
+router.post('/toggle-like', authController.toggleLike);
 
 router.get('/login', (req, res) => {
     res.render('login', {alert: false});
@@ -57,7 +55,7 @@ router.get('/add_recipe', authController.isAuthenticated, (req, res) => {
     res.render('add_recipe', {user: req.user, alert: false}); 
 });
 
-router.get('/favorites', authController.isAuthenticated, (req, res) => {
+router.get('/favorites', authController.isAuthenticated, authController.showLikedRecipes, (req, res) => {
     res.render('favorites', {user: req.user, alert: false}); 
 });
 
@@ -65,6 +63,8 @@ router.get('/browser', (req, res) => {
     res.render('browser');
 });
 
+router.post('/remove-favorite', authController.isAuthenticated, authController.removeFavorite);
+  
 
 
 

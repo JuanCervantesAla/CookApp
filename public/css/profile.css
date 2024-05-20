@@ -261,9 +261,19 @@
     transform: scale(1.125);
 }
 
+.info-recipe p b a{
+    color: white;
+    background-color: var(--brown);
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px var(--second-color);
+    transition: all 0.2s;
+}
 
-
-
+.info-recipe p b a:hover{
+    padding: 15px !important;
+}
 
 
 

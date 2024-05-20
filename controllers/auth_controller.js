@@ -443,7 +443,7 @@ exports.showHomePageDeslogeado = (req, res) => {
 exports.getMoreRecipes = (req, res) => {
     const currentPage = parseInt(req.query.page) || 1;
 
-    getRecipes(currentPage, (err, recipes) => {
+    getRecipes(currentPage, idUser, (err, recipes) => {
         if (err) {
             console.error('Error fetching recipes: ' + err);
             return res.status(500).json({ error: 'Error fetching recipes' });
@@ -494,5 +494,76 @@ exports.showRecipesUser = (req, res, next) => {
         }
 
         res.render('profile', { recipes: recipes, user: user, updateSuccess: false }); // Renderiza la vista 'profile' con las recetas subidas por el usuario
+    });
+};
+
+
+const { toggleLikeForRecipe } = require('../database/db');
+
+exports.toggleLike = (req, res, next) => {
+    const userId = user.id; // Asegúrate de que el usuario esté autenticado y obtener su ID
+    const recipeId = req.body.idRecipe;
+
+    toggleLikeForRecipe(userId, recipeId, (err, liked) => {
+        if (err) {
+            console.error('Error toggling like: ' + err);
+            return res.status(500).send('Error toggling like');
+        }
+
+        res.json({ liked: liked }); // Responde con el estado de "me gusta"
+    });
+};
+
+
+
+
+
+
+
+// Función para mostrar las recetas que le gustan al usuario
+exports.showLikedRecipes = (req, res, next) => {
+    const userId = req.user.id; // ID del usuario actual
+    // Obtener los ID de las recetas que le gustan al usuario
+    conn.query('SELECT idRecipeLike FROM `like` WHERE idUserLike = ?', [userId], (err, likeResults) => {
+        if (err) {
+            console.error('Error fetching liked recipes: ' + err);
+            return res.status(500).send('Error fetching liked recipes');
+        }
+        // Obtener los detalles de las recetas a las que el usuario ha dado like
+        const recipeIds = likeResults.map(result => result.idRecipeLike);
+        // Consultar la base de datos para obtener los detalles de las recetas
+        const likedRecipes = [];
+        recipeIds.forEach(recipeId => {
+            getRecipeById(recipeId, (err, recipe) => {
+                if (err) {
+                    console.error('Error fetching recipe details: ' + err);
+                    return res.status(500).send('Error fetching recipe details');
+                }
+                likedRecipes.push(recipe);
+                // Verificar si se han obtenido todos los detalles de las recetas
+                if (likedRecipes.length === recipeIds.length) {
+                    // Renderizar la página con las recetas que le gustan al usuario
+                    res.render('favorites', { recipes: likedRecipes, user: user });
+                }
+            });
+        });
+    });
+};
+
+
+
+exports.removeFavorite = (req, res) => {
+    const userId = user.id; // Obtener el ID del usuario actual
+    const recipeId = req.body.recipeId; // Obtener el ID de la receta a eliminar de favoritos
+
+    // Eliminar el registro correspondiente de la tabla `like`
+    conn.query('DELETE FROM `like` WHERE idUserLike = ? AND idRecipeLike = ?', [userId, recipeId], (err, results) => {
+        if (err) {
+            console.error('Error removing favorite: ' + err);
+            return res.status(500).send('Error removing favorite');
+        }
+
+        // Devolver una respuesta exitosa al cliente
+        res.json({ success: true });
     });
 };
