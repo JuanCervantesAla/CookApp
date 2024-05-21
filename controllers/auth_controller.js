@@ -11,6 +11,7 @@ const path = require('path');
 
 let user = {};
 let idUser;
+let isAuthenticatedForSecondaryPages = false;
 
 exports.register = async (req, res) => {
     try {
@@ -171,6 +172,8 @@ exports.login = async (req, res) => {
 
                         res.cookie('jwt', token, cookieOptions);
 
+                        isAuthenticatedForSecondaryPages = true;
+
                         res.render('login', {
                             alert: true,
                             alertTitle: 'Conexion exitosa',
@@ -237,6 +240,7 @@ exports.isAuthenticatedForSecondaryPages = async (req, res, next) => {
 exports.logout = (req, res) => {
     res.clearCookie('jwt');
     user = {};
+    isAuthenticatedForSecondaryPages = false;
     return res.redirect('/');
 }
 
@@ -565,5 +569,24 @@ exports.removeFavorite = (req, res) => {
 
         // Devolver una respuesta exitosa al cliente
         res.json({ success: true });
+    });
+};
+
+
+const { getRecipesBy } = require('../database/db');
+
+exports.getRecipesToBrowserBy = (req, res) => {
+    const text = req.query.q;
+    const by = req.query.searchBy;
+    getRecipesBy(by, text, (err, recipes) => {
+        if (err) {
+            res.render('browser', { recipes: null, user: user, updateSuccess: false, isAuthenticatedForSecondaryPages: isAuthenticatedForSecondaryPages}); 
+        }
+
+        if (!recipes) {
+            res.render('browser', { recipes: null, user: user, updateSuccess: false, isAuthenticatedForSecondaryPages: isAuthenticatedForSecondaryPages}); 
+        }
+
+        res.render('browser', { recipes: recipes, user: user, updateSuccess: false, isAuthenticatedForSecondaryPages: isAuthenticatedForSecondaryPages}); 
     });
 };

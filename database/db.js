@@ -89,6 +89,40 @@ function getRecipesUser(idUser, callback) {
     });
 }
 
+function getRecipesBy(by, text, callback) {
+
+    if(by === 'category'){
+        const sql = `
+            SELECT r.*, u.name, u.profilePicUrl
+            FROM recipe r
+            JOIN userc u ON r.idUserSenderRecipe = u.id
+            WHERE r.categoryRecipe = ?
+            AND r.categoryRecipe LIKE ?;        
+        `;
+        conn.query(sql, [text, text], (err, results) => {
+            if (err) {
+                return callback(err, null);
+            }
+            return callback(null, results);
+        });
+    }else if(by === 'title'){
+        const sql = `
+            SELECT r.*, u.name, u.profilePicUrl
+            FROM recipe r
+            JOIN userc u ON r.idUserSenderRecipe = u.id
+            WHERE r.titleRecipe LIKE CONCAT('%', ?, '%')
+            OR r.titleRecipe LIKE ?
+            OR r.titleRecipe = ?;       
+        `;
+        conn.query(sql, [text, text, text], (err, results) => {
+            if (err) {
+                return callback(err, null);
+            }
+            return callback(null, results);
+        });
+    }
+    
+}
 
 function toggleLikeForRecipe(userId, recipeId, callback) {
     // Verifica si el "me gusta" ya existe
@@ -127,5 +161,6 @@ module.exports = {
     getRecipes: getRecipes,
     getRecipeById: getRecipeById,
     getRecipesUser: getRecipesUser,
+    getRecipesBy: getRecipesBy,
     toggleLikeForRecipe: toggleLikeForRecipe
 };

@@ -59,8 +59,12 @@ router.get('/favorites', authController.isAuthenticated, authController.showLike
     res.render('favorites', {user: req.user, alert: false}); 
 });
 
-router.get('/browser', (req, res) => {
-    res.render('browser');
+router.get('/browser', authController.isAuthenticatedForSecondaryPages, (req, res) => {
+    res.render('browser', {isAuthenticatedForSecondaryPages: req.isAuthenticatedForSecondaryPages, user: req.user, recipes:null});
+});
+
+router.get('/search', authController.getRecipesToBrowserBy, authController.isAuthenticatedForSecondaryPages, (req, res) => {
+    res.render('browser', {user: req.user});
 });
 
 router.post('/remove-favorite', authController.isAuthenticated, authController.removeFavorite);
