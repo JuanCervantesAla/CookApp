@@ -177,4 +177,22 @@ router.post('/update-profile-pic', profileUpload.single('profile-pic'), authCont
 
 
 
+
+
+
+
+
+// comentarios
+
+router.get('/comment', authController.comments);
+
+
+router.post('/add-comment', authController.addComment);
+
+
+
+
+
+
+
 module.exports = router;

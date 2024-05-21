@@ -590,3 +590,46 @@ exports.getRecipesToBrowserBy = (req, res) => {
         res.render('browser', { recipes: recipes, user: user, updateSuccess: false, isAuthenticatedForSecondaryPages: isAuthenticatedForSecondaryPages}); 
     });
 };
+
+
+exports.comments = (req, res) => {
+    const recipeId = req.query.id;
+
+    // const query = `
+    //     SELECT c.*, u.name, u.profilePicUrl
+    //     FROM comm c
+    //     JOIN userc u ON c.idUserComm = u.id
+    //     WHERE idPostComm = ?;
+    // `;
+
+    const query = `
+        SELECT c.*, r.*, u.name, u.profilePicUrl
+        FROM comm c
+        JOIN userc u ON c.idUserComm = u.id
+        JOIN recipe r ON c.idPostComm = r.idRecipe
+        WHERE c.idPostComm = ?;    
+    `;
+    conn.query(query, [recipeId], (err, comments) => {
+        if (err) {
+            return res.status(500).send('Error in commentary'+err);
+        }
+        // Devolver los comentarios
+        res.render('comment', { comments: comments, recipeId: recipeId, user: user});
+    });
+};
+
+exports.addComment = (req, res) => {
+    const recipeId = req.body.recipeId;
+    const commentText = req.body.comment;
+
+    const query = `
+        INSERT INTO comm (idUserComm, idPostComm, comm) VALUES (?, ?, ?);
+    `;
+    conn.query(query, [user.id, recipeId, commentText], (err, comments) => {
+        if (err) {
+            return res.status(500).send('Error in commentary'+err);
+        }
+        // regresar a los comentarios
+        res.redirect(`/comment?id=${recipeId}`);
+    });
+};

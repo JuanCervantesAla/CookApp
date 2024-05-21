@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
+
+:root {
+    --main-font: sans-serif;
+    --font-size: 16px;
+    --main-color: #f7df1e;
+    --second-color: #222;
+    --main-modal-color: rgba(255, 239, 114);
+    --second-modal-color: rgba(34, 34, 34, 0.85);
+    --container-width: 1200px;
+    --brown: #a52a2a;
+    --orange: #ffa600;
+    --light-gray: #737373;
+}
+
+.title-comments{
+    width: 100vw;
+    height: fit-content;
+    padding: 15px;
+    background-color: wheat;
+    box-shadow: 0 0 20px 2px rgb(209, 209, 209);
+    border-bottom: 2px dashed var(--brown);
+}
+
+.title-comments h2{
+    width: 100%;
+    text-align: center;
+    color: var(--brown);
+    text-shadow: 0 0 3px var(--main-color);
+    padding: 15px;
+}
+
+.title-comments p{
+    margin: auto;
+    width: fit-content;
+    text-align: center;
+    font-size: 25px;
+    padding: 10px;
+    color: var(--second-color);
+    background-color: white;
+    border-radius: 10px;
+}
+
+.comment{
+    background-color: white;
+    width: 70vw;
+    margin: 25px auto;
+    padding: 20px;
+    border-radius: 20px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    box-shadow: 0 0 20px 2px rgb(209, 209, 209);
+}
+
+.user-comment{
+    display: flex;
+    align-items: center;
+    height: 100px;
+}
+
+.user-comment img{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    box-shadow: 0 0 20px 2px rgb(209, 209, 209);
+}
+
+.user-comment p{
+    font-size: 25px;
+    margin-left: 20px;
+}
+
+#form-add-comment{
+    width: 70vw;
+    height: fit-content;
+    margin: auto;
+    padding: 15px;
+    background-color: wheat;
+    border-radius: 15px;
+    box-shadow: 0 0 20px 2px rgb(209, 209, 209);
+    display: flex;
+    flex-direction: column;
+}
+
+#form-add-comment textarea{
+    resize: none;
+    width: 90%;
+    margin: 15px auto;
+    font-size: 16px;
+    outline: none;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+#form-add-comment button{
+    width: 30%;
+    margin: auto;
+    background-color: var(--main-color);
+    color: var(--brown);
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    border: 2px solid white;
+    box-shadow: 0 0 20px 2px rgb(209, 209, 209);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#form-add-comment button:hover{
+    background-color: var(--brown);
+    color: var(--main-color);
+    transform: scale(1.04);
+}
