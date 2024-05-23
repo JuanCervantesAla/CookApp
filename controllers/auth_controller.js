@@ -257,12 +257,14 @@ exports.updateDescription = async (req, res) => {
                 alertIcon: 'info',
                 showConfirmButton: true,
                 timer: false,
-                route: 'profile'
+                route: 'profile',
+                recipes: []
             });
         }else if(newDescription.length >= 120){
             return res.render('profile', {
                 user: user, 
-                updateSuccess: 0
+                updateSuccess: 0,
+                recipes: []
             });
         }
         // Actualizar la descripcion en la base de datos
@@ -270,13 +272,15 @@ exports.updateDescription = async (req, res) => {
             if (error) {
                 return res.render('profile', {
                     user: user, 
-                    updateSuccess: -1
+                    updateSuccess: -1,
+                    recipes: []
                 });
             }else{
                 // Renderizar la página profile con la bandera updateSuccess
                 return res.render('profile', {
                     user: user, 
-                    updateSuccess: 1
+                    updateSuccess: 1,
+                    recipes: []
                 });
             }
         });
@@ -296,7 +300,8 @@ exports.updateProfilePic = async (req, res) => {
         if (!req.file) {
             return res.render('profile', {
                 user: user, 
-                updateSuccess: -2 // Código para indicar que no se envió ninguna imagen
+                updateSuccess: -2, // Código para indicar que no se envió ninguna imagen
+                recipes: []
             });
         }
 
@@ -305,7 +310,8 @@ exports.updateProfilePic = async (req, res) => {
             if (error) {
                 return res.render('profile', {
                     user: user, 
-                    updateSuccess: -2
+                    updateSuccess: -2,
+                    recipes: []
                 });
             }
 
@@ -314,19 +320,22 @@ exports.updateProfilePic = async (req, res) => {
                 if (error) {
                     return res.render('profile', {
                         user: user, 
-                        updateSuccess: -2
+                        updateSuccess: -2,
+                        recipes: []
                     });
                 }
                 return res.render('profile', {
                     user: user, 
-                    updateSuccess: 2
+                    updateSuccess: 2,
+                    recipes: []
                 });
             });
         });
     } catch (error) {
         return res.render('profile', {
             user: user, 
-            updateSuccess: -2
+            updateSuccess: -2,
+            recipes: []
         });
     }
 };
